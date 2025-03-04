@@ -17,11 +17,6 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
     }
 
     @Override
-    public ExchangeRate delete(ExchangeRate exchangeRate) {
-        return null;
-    }
-
-    @Override
     public List<ExchangeRate> getAll() {
         return List.of();
     }
