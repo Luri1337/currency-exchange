@@ -1,7 +1,6 @@
 package org.example.currency_exchange.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,9 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dao.CurrencyDao;
 import org.example.currency_exchange.model.Currency;
 import org.example.currency_exchange.utils.ExceptionHandler;
-
-import java.io.IOException;
-import java.util.Optional;
 
 @WebServlet("/currency/*")
 public class CurrencyServlet extends HttpServlet {
@@ -32,10 +28,5 @@ public class CurrencyServlet extends HttpServlet {
         }catch (Exception e){
             ExceptionHandler.handleException(e);
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
     }
 }

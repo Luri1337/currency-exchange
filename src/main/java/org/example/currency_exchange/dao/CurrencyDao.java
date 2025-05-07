@@ -15,12 +15,15 @@ public class CurrencyDao implements CrudDao<Currency> {
 
         try (Connection conn = DataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            conn.setAutoCommit(false);
 
             ps.setString(1, currency.getCode());
             ps.setString(2, currency.getFullName());
             ps.setString(3, currency.getSign());
 
             int affectedRows = ps.executeUpdate();
+            System.out.println("Connecting to DB: " + conn.getMetaData().getURL());
+            conn.commit();
 
             if (affectedRows == 0) {
                 throw new SQLException("Creating currency failed, no rows affected.");
@@ -64,18 +67,25 @@ public class CurrencyDao implements CrudDao<Currency> {
 
     @Override
     public Optional<Currency> getById(int id) {
-        return Optional.empty();
+        String query = "SELECT * FROM Currencies WHERE id = ?";
+        Optional<Currency> currency = Optional.empty();
+
+        try (Connection conn = DataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    currency = Optional.of(getCurrency(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return currency;
     }
 
-
-    private Currency getCurrency(ResultSet rs) throws SQLException {
-        return new Currency(
-                rs.getInt("id"),
-                rs.getString("fullName"),
-                rs.getString("code"),
-                rs.getString("sign")
-        );
-    }
 
 
     public Optional<Currency> getByCode(String code) {
@@ -96,6 +106,15 @@ public class CurrencyDao implements CrudDao<Currency> {
             throw new RuntimeException(e);
         }
         return currency;
+    }
+
+    private Currency getCurrency(ResultSet rs) throws SQLException {
+        return new Currency(
+                rs.getInt("id"),
+                rs.getString("fullName"),
+                rs.getString("code"),
+                rs.getString("sign")
+        );
     }
 }
 

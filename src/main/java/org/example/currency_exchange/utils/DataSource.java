@@ -12,7 +12,7 @@ public class DataSource {
 
     static {
         config.setDriverClassName("org.sqlite.JDBC");
-        config.setJdbcUrl("jdbc:sqlite:" + DataSource.class.getClassLoader().getResource("appdb.db"));
+        config.setJdbcUrl("jdbc:sqlite:C:/Users/Dima/IdeaProjects/currency-exchange/src/main/resources/appdb.db");
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");

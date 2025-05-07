@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 public class Currency {
     private int id;
-    @JsonProperty(value = "full_name")
+    @JsonProperty(value = "name")
     private String fullName;
     private String code;
     private String sign;
