@@ -14,7 +14,36 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
 
     @Override
     public ExchangeRate create(ExchangeRate exchangeRate) {
-        return null;
+        String query = "INSERT INTO exchangeRates(basecurrencycode, targetcurrencycode, exchange_rate) VALUES(?, ?, ?)";
+
+        try (Connection conn = DataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            conn.setAutoCommit(false);
+
+            ps.setInt(1, exchangeRate.getBaseCurrencyID());
+            ps.setInt(2, exchangeRate.getTargetCurrencyID());
+            ps.setBigDecimal(3, exchangeRate.getRate());
+
+            int affectedRows = ps.executeUpdate();
+            System.out.println("Connecting to DB: " + conn.getMetaData().getURL());
+            conn.commit();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating ExchangeRate failed, no rows affected.");
+            }
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    exchangeRate.setId(rs.getInt(1));
+                } else {
+                    throw new SQLException("Creating ExchangeRate failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return exchangeRate;
+
     }
 
     @Override
