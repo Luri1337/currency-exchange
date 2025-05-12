@@ -9,9 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4db3f42a-358b-4097-a0ef-127a0f469070" name="Changes" comment="starting exchangeRates servlet">
+    <list default="true" id="4db3f42a-358b-4097-a0ef-127a0f469070" name="Changes" comment="GET exchangeRates realization and started POST exchangeRates">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/ExchangeRateDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/ExchangeRateDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/model/ExchangeRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/model/ExchangeRate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRatesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRatesServlet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +71,7 @@
     "Maven.currency-exchange [clean].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Tomcat Server.Tomcat 11.0.4.executor": "Debug",
+    "Tomcat Server.Tomcat 11.0.4.executor": "Run",
     "Tomcat Server.Unnamed.executor": "Run",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "21",
@@ -238,7 +239,10 @@
       <workItem from="1744712622626" duration="3000" />
       <workItem from="1744713888453" duration="3000" />
       <workItem from="1745053000670" duration="6000" />
-      <workItem from="1746613966893" duration="9303000" />
+      <workItem from="1746613966893" duration="9570000" />
+      <workItem from="1746630038568" duration="147000" />
+      <workItem from="1746883194093" duration="7000" />
+      <workItem from="1747071580599" duration="7030000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -272,7 +276,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746616166461</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="GET exchangeRates realization and started POST exchangeRates">
+      <option name="closed" value="true" />
+      <created>1746629920834</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1746629920834</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -294,6 +306,22 @@
     <MESSAGE value="currencies realization" />
     <MESSAGE value="currency GET method realization, currencies POST method realization" />
     <MESSAGE value="starting exchangeRates servlet" />
-    <option name="LAST_COMMIT_MESSAGE" value="starting exchangeRates servlet" />
+    <MESSAGE value="GET exchangeRates realization and started POST exchangeRates" />
+    <option name="LAST_COMMIT_MESSAGE" value="GET exchangeRates realization and started POST exchangeRates" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRatesServlet.java</url>
+          <line>38</line>
+          <properties class="org.example.currency_exchange.servlets.ExchangeRatesServlet" method="doPost">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -14,5 +14,13 @@ public class ExchangeRate {
     private int baseCurrencyID;
     private int targetCurrencyID;
     private BigDecimal rate;
+
+    public ExchangeRate(int baseCurrencyID, int targetCurrencyID, BigDecimal rate) {
+        this.baseCurrencyID = baseCurrencyID;
+        this.targetCurrencyID = targetCurrencyID;
+        this.rate = rate;
+    }
 }
+
+
 

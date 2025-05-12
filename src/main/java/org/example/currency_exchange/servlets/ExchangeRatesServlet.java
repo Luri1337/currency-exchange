@@ -1,5 +1,6 @@
 package org.example.currency_exchange.servlets;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,7 +13,10 @@ import org.example.currency_exchange.model.ExchangeRate;
 import org.example.currency_exchange.service.ExchangeRateService;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 @WebServlet("/exchangeRates")
@@ -33,13 +37,12 @@ public class ExchangeRatesServlet extends HttpServlet {
     //TODO     доделать реализацию этого метода, адаптировать из формата x-www-form-urlencoded под формат json
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Scanner scanner = new Scanner(req.getInputStream(), "UTF-8");
-        String jsonData = scanner.useDelimiter("\\A").next();
-        scanner.close();
-
+        String baseCurrencyID = req.getParameter("baseCurrencyID");
+        String targetCurrency = req.getParameter("targetCurrencyID");
+        String rate = req.getParameter("rate");
         try{
             ObjectMapper objectMapper = new ObjectMapper();
-            ExchangeRate exchangeRate = objectMapper.readValue(jsonData, ExchangeRate.class);
+            ExchangeRate exchangeRate = new ExchangeRate(Integer.valueOf(baseCurrencyID), Integer.valueOf(targetCurrency), BigDecimal.valueOf(Double.valueOf(rate)));
             exchangeRateDao.create(exchangeRate);
 
             ExchangeRate addedExchangeRate = exchangeRateDao.getById(exchangeRate.getId())

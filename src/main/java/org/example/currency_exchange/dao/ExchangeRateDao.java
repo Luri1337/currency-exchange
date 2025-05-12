@@ -14,7 +14,7 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
 
     @Override
     public ExchangeRate create(ExchangeRate exchangeRate) {
-        String query = "INSERT INTO exchangeRates(basecurrencycode, targetcurrencycode, exchange_rate) VALUES(?, ?, ?)";
+        String query = "INSERT INTO exchangeRates(basecurrencyid, targetcurrencyid, rate) VALUES(?, ?, ?)";
 
         try (Connection conn = DataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -71,7 +71,23 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
 
     @Override
     public Optional<ExchangeRate> getById(int id) {
-        return Optional.empty();
+        String query = "SELECT * FROM ExchangeRates WHERE id = ?";
+        Optional<ExchangeRate> exchangeRate = Optional.empty();
+
+        try (Connection conn = DataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    exchangeRate = Optional.of(getExchangeRate(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return exchangeRate;
     }
 
     public Optional<ExchangeRate> getByCodePair(String base, String target) throws SQLException {
