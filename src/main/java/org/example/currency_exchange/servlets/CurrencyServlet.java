@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dao.CurrencyDao;
 import org.example.currency_exchange.model.Currency;
-import org.example.currency_exchange.utils.ExceptionHandler;
+import org.example.currency_exchange.exceptions.ExceptionHandler;
 
 @WebServlet("/currency/*")
 public class CurrencyServlet extends HttpServlet {

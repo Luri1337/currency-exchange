@@ -8,11 +8,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dto.ExchangeRateDto;
 import org.example.currency_exchange.service.ExchangeRateService;
-import org.example.currency_exchange.utils.ExceptionHandler;
+import org.example.currency_exchange.exceptions.ExceptionHandler;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 @WebServlet("/exchangeRate/*")
 public class ExchangeRateServlet extends HttpServlet {

@@ -34,7 +34,7 @@ public class ExchangeRatesServlet extends HttpServlet {
            resp.getWriter().write(e.getMessage());
        }
     }
-    //TODO     доделать реализацию этого метода, адаптировать из формата x-www-form-urlencoded под формат json
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String baseCurrencyID = req.getParameter("baseCurrencyID");
