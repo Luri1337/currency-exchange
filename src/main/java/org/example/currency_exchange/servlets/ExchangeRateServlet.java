@@ -26,7 +26,7 @@ public class ExchangeRateServlet extends HttpServlet {
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(resp.getWriter(), exchangeRateDto);
         } catch (SQLException e) {
-            ExceptionHandler.handleException(e);
+
         }
 
 

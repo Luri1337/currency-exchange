@@ -62,6 +62,8 @@ public class CurrencyDao implements CrudDao<Currency> {
             }
 
             return currencies;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

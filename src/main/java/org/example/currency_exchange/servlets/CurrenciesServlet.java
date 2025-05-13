@@ -34,8 +34,8 @@ public class CurrenciesServlet extends HttpServlet {
             resp.getWriter().write(new ObjectMapper().writeValueAsString(addedCurrency));
 
         }catch (Exception e){
-            ExceptionHandler.handleException(e);
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
+
         }
     }
 
@@ -43,6 +43,7 @@ public class CurrenciesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             List<Currency> currencies = currencyDao.getAll();
+            resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write(new ObjectMapper().writeValueAsString(currencies));
         } catch (SQLException e) {
             resp.getWriter().write(e.getMessage());
