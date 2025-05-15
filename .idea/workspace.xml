@@ -9,16 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4db3f42a-358b-4097-a0ef-127a0f469070" name="Changes" comment="POST ExchangeRates realization">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dto/ExceptionDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/CurrencyNotFoundException.java" afterDir="false" />
+    <list default="true" id="4db3f42a-358b-4097-a0ef-127a0f469070" name="Changes" comment="ExceptionHandler realization, GET currency exception handling">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/CurrencyAlreadyExistException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/InvalidCurrencyFormat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/MissingRequiredParameterException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/CurrenciesValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/CurrencyValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/Validator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/CurrencyDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/CurrencyDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/ExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/ExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/CurrenciesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/CurrenciesServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/CurrencyServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/CurrencyServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRateServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRateServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,8 +29,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Exception" />
         <option value="Class" />
+        <option value="Exception" />
       </list>
     </option>
   </component>
@@ -250,7 +250,9 @@
       <workItem from="1746883194093" duration="7000" />
       <workItem from="1747071580599" duration="7264000" />
       <workItem from="1747143513142" duration="4274000" />
-      <workItem from="1747161968022" duration="2712000" />
+      <workItem from="1747161968022" duration="2992000" />
+      <workItem from="1747213925072" duration="1000" />
+      <workItem from="1747303490461" duration="7310000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -300,7 +302,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747078846466</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="ExceptionHandler realization, GET currency exception handling">
+      <option name="closed" value="true" />
+      <created>1747164906641</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1747164906641</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,7 +334,8 @@
     <MESSAGE value="starting exchangeRates servlet" />
     <MESSAGE value="GET exchangeRates realization and started POST exchangeRates" />
     <MESSAGE value="POST ExchangeRates realization" />
-    <option name="LAST_COMMIT_MESSAGE" value="POST ExchangeRates realization" />
+    <MESSAGE value="ExceptionHandler realization, GET currency exception handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="ExceptionHandler realization, GET currency exception handling" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -337,6 +348,15 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/CurrenciesServlet.java</url>
+          <line>23</line>
+          <properties class="org.example.currency_exchange.servlets.CurrenciesServlet" method="doPost">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
