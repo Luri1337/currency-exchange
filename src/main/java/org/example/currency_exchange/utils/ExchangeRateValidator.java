@@ -1,15 +1,14 @@
 package org.example.currency_exchange.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.example.currency_exchange.exceptions.InvalidCurrencyFormatException;
+import org.example.currency_exchange.exceptions.InvalidExchangeRateFormatException;
 import org.example.currency_exchange.exceptions.MissingRequiredParameterException;
 
-public class CurrencyValidator extends Validator {
-
+public class ExchangeRateValidator extends Validator {
     @Override
     public void validateRequest(HttpServletRequest request) {
-        String param = getRequiredParameter(request);
-        validateCurrencyCode(param);
+        String codePair = getRequiredParameter(request);
+        validateCodePair(codePair);
     }
 
     private String getRequiredParameter(HttpServletRequest request) {
@@ -21,11 +20,9 @@ public class CurrencyValidator extends Validator {
         return param;
     }
 
-    private void validateCurrencyCode(String param) {
-        if (!param.matches("^[A-Z]{3}$")) {
-            throw new InvalidCurrencyFormatException("Invalid currency code format");
+    private void validateCodePair(String codePair) {
+        if(!codePair.matches("^[A-Z]{6}$")) {
+            throw new InvalidExchangeRateFormatException("Invalid code pair");
         }
     }
-
-
 }

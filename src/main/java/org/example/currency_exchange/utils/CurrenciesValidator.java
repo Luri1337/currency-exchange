@@ -3,7 +3,7 @@ package org.example.currency_exchange.utils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.example.currency_exchange.dao.CurrencyDao;
 import org.example.currency_exchange.exceptions.CurrencyAlreadyExistException;
-import org.example.currency_exchange.exceptions.InvalidCurrencyFormat;
+import org.example.currency_exchange.exceptions.InvalidCurrencyFormatException;
 import org.example.currency_exchange.exceptions.MissingRequiredParameterException;
 
 public class CurrenciesValidator extends Validator {
@@ -23,13 +23,13 @@ public class CurrenciesValidator extends Validator {
        }
 
        if(!name.matches("[A-Z]+")){
-           throw new InvalidCurrencyFormat("Invalid currency name format");
+           throw new InvalidCurrencyFormatException("Invalid currency name format");
        }
        else if(!code.matches("^[A-Z]{3}$")){
-           throw new InvalidCurrencyFormat("Invalid currency code format");
+           throw new InvalidCurrencyFormatException("Invalid currency code format");
        }
        else if(!sign.matches("[\\p{Sc}]")){
-           throw new InvalidCurrencyFormat("Invalid currency sign format");
+           throw new InvalidCurrencyFormatException("Invalid currency sign format");
        }
        else if(currencyDao.getByCode(code).isPresent()){
            throw new CurrencyAlreadyExistException("Currency already exists");

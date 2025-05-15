@@ -9,16 +9,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4db3f42a-358b-4097-a0ef-127a0f469070" name="Changes" comment="ExceptionHandler realization, GET currency exception handling">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/CurrencyAlreadyExistException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/InvalidCurrencyFormat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/MissingRequiredParameterException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/CurrenciesValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/CurrencyValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/Validator.java" afterDir="false" />
+    <list default="true" id="4db3f42a-358b-4097-a0ef-127a0f469070" name="Changes" comment="Realization of validation for CurrenciesServlet and CurrencyServlet">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/ExchangeRateNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/InvalidCurrencyFormatException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/InvalidExchangeRateFormatException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/ExchangeRateValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/ExchangeRatesValidator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/CurrenciesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/CurrenciesServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/CurrencyServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/CurrencyServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/ExchangeRateDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/ExchangeRateDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/InvalidCurrencyFormat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/model/ExchangeRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/model/ExchangeRate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/service/ExchangeRateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/service/ExchangeRateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRateServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRateServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRatesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRatesServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/CurrenciesValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/CurrenciesValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/CurrencyValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/CurrencyValidator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +82,7 @@
     "Maven.currency-exchange [clean].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Tomcat Server.Tomcat 11.0.4.executor": "Run",
+    "Tomcat Server.Tomcat 11.0.4.executor": "Debug",
     "Tomcat Server.Unnamed.executor": "Run",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "21",
@@ -252,7 +257,7 @@
       <workItem from="1747143513142" duration="4274000" />
       <workItem from="1747161968022" duration="2992000" />
       <workItem from="1747213925072" duration="1000" />
-      <workItem from="1747303490461" duration="7310000" />
+      <workItem from="1747303490461" duration="15360000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -310,7 +315,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747164906641</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Realization of validation for CurrenciesServlet and CurrencyServlet">
+      <option name="closed" value="true" />
+      <created>1747311205105</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1747311205105</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -335,20 +348,12 @@
     <MESSAGE value="GET exchangeRates realization and started POST exchangeRates" />
     <MESSAGE value="POST ExchangeRates realization" />
     <MESSAGE value="ExceptionHandler realization, GET currency exception handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="ExceptionHandler realization, GET currency exception handling" />
+    <MESSAGE value="Realization of validation for CurrenciesServlet and CurrencyServlet" />
+    <option name="LAST_COMMIT_MESSAGE" value="Realization of validation for CurrenciesServlet and CurrencyServlet" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/CurrencyDao.java</url>
-          <line>92</line>
-          <properties class="org.example.currency_exchange.dao.CurrencyDao" method="getByCode">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/CurrenciesServlet.java</url>
           <line>23</line>
@@ -357,6 +362,15 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRateServlet.java</url>
+          <line>24</line>
+          <properties class="org.example.currency_exchange.servlets.ExchangeRateServlet" method="doGet">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -27,22 +27,22 @@ public class ExchangeRatesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try{
-           List<ExchangeRateDto> exchangeRates = exchangeRateService.getAllExchangeRates();
-           resp.getWriter().write(new ObjectMapper().writeValueAsString(exchangeRates));
+           //List<ExchangeRateDto> exchangeRates = exchangeRateService.getAllExchangeRates();
+           //resp.getWriter().write(new ObjectMapper().writeValueAsString(exchangeRates));
        }
        catch (Exception e){
            resp.getWriter().write(e.getMessage());
        }
     }
 
-    @Override
+   /* @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String baseCurrencyID = req.getParameter("baseCurrencyID");
         String targetCurrency = req.getParameter("targetCurrencyID");
         String rate = req.getParameter("rate");
         try{
             ObjectMapper objectMapper = new ObjectMapper();
-            ExchangeRate exchangeRate = new ExchangeRate(Integer.valueOf(baseCurrencyID), Integer.valueOf(targetCurrency), BigDecimal.valueOf(Double.valueOf(rate)));
+            /*ExchangeRate exchangeRate = new ExchangeRate(Integer.valueOf(baseCurrencyID), Integer.valueOf(targetCurrency), BigDecimal.valueOf(Double.valueOf(rate)));
             exchangeRateDao.create(exchangeRate);
 
             ExchangeRate addedExchangeRate = exchangeRateDao.getById(exchangeRate.getId())
@@ -52,5 +52,5 @@ public class ExchangeRatesServlet extends HttpServlet {
         }catch (Exception e){
             resp.getWriter().write(e.getMessage());
         }
-    }
+    }*/
 }
