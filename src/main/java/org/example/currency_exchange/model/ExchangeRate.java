@@ -22,10 +22,16 @@ public class ExchangeRate {
         this.rate = rate;
     }
 
-    public ExchangeRate(int id, Optional<Currency> baseCurrencyId, Optional<Currency> targetCurrencyId, BigDecimal rate) {
+    public ExchangeRate(int id, Optional<Currency> baseCurr, Optional<Currency> targetCurr, BigDecimal rate) {
         this.id = id;
-        this.baseCurrency = baseCurrencyId.orElse(baseCurrency);
-        this.targetCurrency = targetCurrencyId.orElse(targetCurrency);
+        this.baseCurrency = baseCurr.orElse(baseCurrency);
+        this.targetCurrency = targetCurr.orElse(targetCurrency);
+        this.rate = rate;
+    }
+
+    public ExchangeRate(Optional<Currency> baseCurr, Optional<Currency> targetCurr, BigDecimal rate) {
+        this.baseCurrency = baseCurr.orElse(baseCurrency);
+        this.targetCurrency = targetCurr.orElse(targetCurrency);
         this.rate = rate;
     }
 }

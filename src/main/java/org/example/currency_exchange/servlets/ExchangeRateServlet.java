@@ -1,21 +1,18 @@
 package org.example.currency_exchange.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dao.ExchangeRateDao;
-import org.example.currency_exchange.dto.ExchangeRateDto;
 import org.example.currency_exchange.exceptions.ExchangeRateNotFoundException;
 import org.example.currency_exchange.model.ExchangeRate;
-import org.example.currency_exchange.service.ExchangeRateService;
 import org.example.currency_exchange.exceptions.ExceptionHandler;
 import org.example.currency_exchange.utils.ExchangeRateValidator;
 
 import java.io.IOException;
-import java.sql.SQLException;
+
 
 @WebServlet("/exchangeRate/*")
 public class ExchangeRateServlet extends HttpServlet {
