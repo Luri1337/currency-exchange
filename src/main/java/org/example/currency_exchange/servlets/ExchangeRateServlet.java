@@ -12,12 +12,15 @@ import org.example.currency_exchange.exceptions.ExceptionHandler;
 import org.example.currency_exchange.utils.ExchangeRateValidator;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 
 @WebServlet("/exchangeRate/*")
 public class ExchangeRateServlet extends HttpServlet {
-    ExchangeRateDao exchangeRateDao = new ExchangeRateDao();
-    ExchangeRateValidator validator = new ExchangeRateValidator();
+    private static final ExchangeRateDao exchangeRateDao = new ExchangeRateDao();
+    private static final ExchangeRateValidator validator = new ExchangeRateValidator();
+    private static final ObjectMapper mapper = new ObjectMapper();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String path = req.getRequestURI();
@@ -27,7 +30,6 @@ public class ExchangeRateServlet extends HttpServlet {
             validator.validateRequest(req);
             ExchangeRate exchangeRate = exchangeRateDao.getByCodePair(baseCurrencyCode, targetCurrencyCode)
                     .orElseThrow(() -> new ExchangeRateNotFoundException("Exchange rate not found") );
-            ObjectMapper mapper = new ObjectMapper();
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write(mapper.writeValueAsString(exchangeRate));
         } catch (Exception e) {
@@ -49,5 +51,26 @@ public class ExchangeRateServlet extends HttpServlet {
         }
 
 
+    }
+
+    protected void doPatch(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String path = req.getRequestURI();
+        String baseCurrencyCode = path.substring(14, 17).toUpperCase();
+        String targetCurrencyCode = path.substring(17, 20).toUpperCase();
+        String rate = req.getParameter("rate");
+
+        try{
+            validator.validateRequest(req);
+
+            ExchangeRate exchangeRate = exchangeRateDao.getByCodePair(baseCurrencyCode, targetCurrencyCode)
+                    .orElseThrow(() -> new ExchangeRateNotFoundException("Exchange rate not found"));
+
+            exchangeRate.setRate(new BigDecimal(rate));
+            exchangeRateDao.update(exchangeRate);
+            resp.setStatus(HttpServletResponse.SC_OK);
+            resp.getWriter().write(mapper.writeValueAsString(exchangeRate));
+        }catch(Exception e){
+            ExceptionHandler.handleException(resp, 500, "Internal Server Error");
+        }
     }
 }

@@ -49,8 +49,20 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
     }
 
     @Override
-    public ExchangeRate update(ExchangeRate exchangeRate) {
-        return null;
+    public ExchangeRate update(ExchangeRate exchangeRate) throws SQLException {
+        String query = "update exchangeRates set rate = ? where id = ?";
+
+        try (Connection conn = DataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setBigDecimal(1, exchangeRate.getRate());
+            ps.setInt(2, exchangeRate.getId());
+
+            ps.executeUpdate();
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return exchangeRate;
     }
 
     @Override

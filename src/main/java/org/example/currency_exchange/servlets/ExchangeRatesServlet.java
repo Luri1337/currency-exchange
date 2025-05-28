@@ -1,7 +1,6 @@
 package org.example.currency_exchange.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +9,6 @@ import org.example.currency_exchange.dao.CurrencyDao;
 import org.example.currency_exchange.dao.ExchangeRateDao;
 import org.example.currency_exchange.exceptions.*;
 import org.example.currency_exchange.model.ExchangeRate;
-import org.example.currency_exchange.service.ExchangeRateService;
 import org.example.currency_exchange.utils.ExchangeRatesValidator;
 import org.example.currency_exchange.utils.Validator;
 
@@ -37,14 +35,14 @@ public class ExchangeRatesServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String baseCurrencyID = req.getParameter("baseCurrencyID");
         String targetCurrencyID = req.getParameter("targetCurrencyID");
         String rate = req.getParameter("rate");
         try{
             validator.validateRequest(req);
             ObjectMapper objectMapper = new ObjectMapper();
-            ExchangeRate exchangeRate = new ExchangeRate(currencyDao.getById(Integer.valueOf(baseCurrencyID)), currencyDao.getById(Integer.valueOf(targetCurrencyID)), BigDecimal.valueOf(Double.valueOf(rate)));
+            ExchangeRate exchangeRate = new ExchangeRate(currencyDao.getById(Integer.parseInt(baseCurrencyID)), currencyDao.getById(Integer.valueOf(targetCurrencyID)), BigDecimal.valueOf(Double.valueOf(rate)));
             exchangeRateDao.create(exchangeRate);
 
             ExchangeRate addedExchangeRate = exchangeRateDao.getById(exchangeRate.getId())

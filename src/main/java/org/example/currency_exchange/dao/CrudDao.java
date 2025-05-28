@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface CrudDao<T> {
     public T create(T t);
-    public T update(T t);
+    public T update(T t) throws SQLException;
     public List<T> getAll() throws SQLException;
     public Optional<T> getById(int id);
 }
