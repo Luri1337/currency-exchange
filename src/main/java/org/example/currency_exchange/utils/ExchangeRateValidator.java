@@ -3,7 +3,7 @@ package org.example.currency_exchange.utils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.example.currency_exchange.exceptions.InvalidExchangeRateFormatException;
 import org.example.currency_exchange.exceptions.MissingRequiredParameterException;
-
+//TODO: придумать как сделать валидацию для PATCH запроса
 public class ExchangeRateValidator extends Validator {
     @Override
     public void validateRequest(HttpServletRequest request) {

@@ -67,6 +67,7 @@ public class ExchangeRateServlet extends HttpServlet {
 
             exchangeRate.setRate(new BigDecimal(rate));
             exchangeRateDao.update(exchangeRate);
+
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write(mapper.writeValueAsString(exchangeRate));
         }catch(Exception e){
