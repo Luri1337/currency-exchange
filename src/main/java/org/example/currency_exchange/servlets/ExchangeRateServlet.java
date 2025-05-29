@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dao.ExchangeRateDao;
 import org.example.currency_exchange.exceptions.ExchangeRateNotFoundException;
+import org.example.currency_exchange.exceptions.InvalidExchangeRateFormatException;
+import org.example.currency_exchange.exceptions.MissingRequiredParameterException;
 import org.example.currency_exchange.model.ExchangeRate;
 import org.example.currency_exchange.exceptions.ExceptionHandler;
 import org.example.currency_exchange.utils.ExchangeRateValidator;
@@ -49,14 +51,12 @@ public class ExchangeRateServlet extends HttpServlet {
                 ExceptionHandler.handleException(resp, 500, "Internal Server Error");
             }
         }
-
-
     }
 
     protected void doPatch(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String path = req.getRequestURI();
         String baseCurrencyCode = path.substring(14, 17).toUpperCase();
-        String targetCurrencyCode = path.substring(17, 20).toUpperCase();
+        String targetCurrencyCode = path.substring(17).toUpperCase();
         String rate = req.getParameter("rate");
 
         try{
@@ -70,7 +70,13 @@ public class ExchangeRateServlet extends HttpServlet {
 
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write(mapper.writeValueAsString(exchangeRate));
-        }catch(Exception e){
+        }catch (MissingRequiredParameterException | InvalidExchangeRateFormatException e){
+            ExceptionHandler.handleException(resp, 400, e.getMessage());
+        }
+        catch (ExchangeRateNotFoundException e){
+            ExceptionHandler.handleException(resp, 404, e.getMessage());
+        }
+        catch(Exception e){
             ExceptionHandler.handleException(resp, 500, "Internal Server Error");
         }
     }

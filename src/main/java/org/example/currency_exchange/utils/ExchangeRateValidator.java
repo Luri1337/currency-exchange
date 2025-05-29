@@ -3,12 +3,17 @@ package org.example.currency_exchange.utils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.example.currency_exchange.exceptions.InvalidExchangeRateFormatException;
 import org.example.currency_exchange.exceptions.MissingRequiredParameterException;
-//TODO: придумать как сделать валидацию для PATCH запроса
+// TODO: придумать как сделать валидацию для PATCH запроса
 public class ExchangeRateValidator extends Validator {
     @Override
     public void validateRequest(HttpServletRequest request) {
         String codePair = getRequiredParameter(request);
         validateCodePair(codePair);
+
+        if (request.getMethod().equalsIgnoreCase("PATCH")) {
+            validateRate(request.getParameter("rate"));
+        }
+
     }
 
     private String getRequiredParameter(HttpServletRequest request) {
@@ -23,6 +28,15 @@ public class ExchangeRateValidator extends Validator {
     private void validateCodePair(String codePair) {
         if(!codePair.matches("^[A-Z]{6}$")) {
             throw new InvalidExchangeRateFormatException("Invalid code pair");
+        }
+    }
+
+    private void validateRate(String rate) {
+        if (rate.isBlank()) {
+            throw new MissingRequiredParameterException("Rate is missing");
+        }
+        else if (!rate.matches("^\\+?\\d+(\\.\\d+)?$")) {
+            throw new InvalidExchangeRateFormatException("Invalid rate format");
         }
     }
 }

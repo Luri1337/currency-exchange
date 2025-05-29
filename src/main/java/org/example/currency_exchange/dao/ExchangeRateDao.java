@@ -1,6 +1,7 @@
 package org.example.currency_exchange.dao;
 
 import org.example.currency_exchange.exceptions.CurrencyNotFoundException;
+import org.example.currency_exchange.exceptions.ExchangeRateNotFoundException;
 import org.example.currency_exchange.model.Currency;
 import org.example.currency_exchange.model.ExchangeRate;
 import org.example.currency_exchange.utils.DataSource;
@@ -123,13 +124,10 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
                 return Optional.of(getExchangeRate(rs));
             }
             return Optional.empty();
-        }catch (Exception e) {
-           if (e.getMessage().equals("Currency not found")) {
-               throw new CurrencyNotFoundException("Currency not found");
-           }
-           else {
-               throw e;
-           }
+        } catch (CurrencyNotFoundException e){
+            throw new ExchangeRateNotFoundException("ExchangeRate not found");
+        } catch (Exception e) {
+            throw e;
         }
     }
 
