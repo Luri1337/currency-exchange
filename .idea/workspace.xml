@@ -9,10 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4db3f42a-358b-4097-a0ef-127a0f469070" name="Changes" comment="TODOS">
+    <list default="true" id="4db3f42a-358b-4097-a0ef-127a0f469070" name="Changes" comment="validation for ExchangeRateServlet">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/ExchangeRateDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/ExchangeRateDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRateServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRateServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/service/ExchangeRateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/service/ExchangeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/ExchangeRateValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/ExchangeRateValidator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,8 +24,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="Exception" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -72,7 +72,7 @@
     "Maven.currency-exchange [clean].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Tomcat Server.Tomcat 11.0.4.executor": "Debug",
+    "Tomcat Server.Tomcat 11.0.4.executor": "Run",
     "Tomcat Server.Unnamed.executor": "Run",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "21",
@@ -254,7 +254,7 @@
       <workItem from="1748180630630" duration="5281000" />
       <workItem from="1748253295903" duration="6000" />
       <workItem from="1748461120642" duration="4753000" />
-      <workItem from="1748541696368" duration="1621000" />
+      <workItem from="1748541696368" duration="4290000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -352,7 +352,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748467913301</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="validation for ExchangeRateServlet">
+      <option name="closed" value="true" />
+      <created>1748543551371</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1748543551371</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -382,21 +390,7 @@
     <MESSAGE value="Realization of validation for ExchangeRatesServlet" />
     <MESSAGE value="Realization of exchange rates PATCH" />
     <MESSAGE value="TODOS" />
-    <option name="LAST_COMMIT_MESSAGE" value="TODOS" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRateServlet.java</url>
-          <line>55</line>
-          <properties class="org.example.currency_exchange.servlets.ExchangeRateServlet" method="doPatch">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="validation for ExchangeRateServlet" />
+    <option name="LAST_COMMIT_MESSAGE" value="validation for ExchangeRateServlet" />
   </component>
 </project>
