@@ -1,4 +1,4 @@
-package org.example.currency_exchange.exceptions;
+package org.example.currency_exchange.exception;
 
 public class CurrencyNotFoundException extends RuntimeException {
     public CurrencyNotFoundException(String message) {

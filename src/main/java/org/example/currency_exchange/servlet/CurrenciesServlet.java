@@ -1,4 +1,4 @@
-package org.example.currency_exchange.servlets;
+package org.example.currency_exchange.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -7,9 +7,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dao.CurrencyDao;
-import org.example.currency_exchange.exceptions.ExceptionHandler;
+import org.example.currency_exchange.exception.ExceptionHandler;
 import org.example.currency_exchange.model.Currency;
-import org.example.currency_exchange.utils.CurrenciesValidator;
+import org.example.currency_exchange.util.CurrenciesValidator;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,7 +26,7 @@ public class CurrenciesServlet extends HttpServlet {
         String code = req.getParameter("code");
         String sign = req.getParameter("sign");
 
-        try{
+        try {
             currenciesValidator.validateRequest(req);
             Currency currency = new Currency(name, code, sign);
             currencyDao.create(currency);
@@ -34,23 +34,18 @@ public class CurrenciesServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_CREATED);
             resp.getWriter().write(new ObjectMapper().writeValueAsString(currency));
 
-        }catch (Exception e){
+        } catch (Exception e) {
             if (e.getMessage().equals("Missing required currency field")) {
                 ExceptionHandler.handleException(resp, 400, "Missing required currency field");
-            }
-            else if (e.getMessage().equals("Invalid currency name format")) {
+            } else if (e.getMessage().equals("Invalid currency name format")) {
                 ExceptionHandler.handleException(resp, 400, "Invalid currency name format");
-            }
-            else if (e.getMessage().equals("Invalid currency code format")) {
+            } else if (e.getMessage().equals("Invalid currency code format")) {
                 ExceptionHandler.handleException(resp, 400, "Invalid currency code format");
-            }
-            else if (e.getMessage().equals("Invalid currency sign format")) {
+            } else if (e.getMessage().equals("Invalid currency sign format")) {
                 ExceptionHandler.handleException(resp, 400, "Invalid currency sign format");
-            }
-            else if (e.getMessage().equals("Currency already exists")) {
+            } else if (e.getMessage().equals("Currency already exists")) {
                 ExceptionHandler.handleException(resp, 409, "Currency already exists");
-            }
-            else{
+            } else {
                 ExceptionHandler.handleException(resp, 500, "Internal Server Error");
             }
 

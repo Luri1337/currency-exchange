@@ -1,7 +1,7 @@
 package org.example.currency_exchange.dao;
 
 import org.example.currency_exchange.model.Currency;
-import org.example.currency_exchange.utils.DataSource;
+import org.example.currency_exchange.util.DataSource;
 
 import java.sql.*;
 import java.util.ArrayList;

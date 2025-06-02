@@ -1,4 +1,4 @@
-package org.example.currency_exchange.servlets;
+package org.example.currency_exchange.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.annotation.WebServlet;
@@ -6,12 +6,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dao.ExchangeRateDao;
-import org.example.currency_exchange.exceptions.ExchangeRateNotFoundException;
-import org.example.currency_exchange.exceptions.InvalidExchangeRateFormatException;
-import org.example.currency_exchange.exceptions.MissingRequiredParameterException;
+import org.example.currency_exchange.exception.ExchangeRateNotFoundException;
+import org.example.currency_exchange.exception.InvalidExchangeRateFormatException;
+import org.example.currency_exchange.exception.MissingRequiredParameterException;
 import org.example.currency_exchange.model.ExchangeRate;
-import org.example.currency_exchange.exceptions.ExceptionHandler;
-import org.example.currency_exchange.utils.ExchangeRateValidator;
+import org.example.currency_exchange.exception.ExceptionHandler;
+import org.example.currency_exchange.util.ExchangeRateValidator;
 
 import java.io.IOException;
 import java.math.BigDecimal;

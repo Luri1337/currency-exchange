@@ -1,6 +1,5 @@
-package org.example.currency_exchange.exceptions;
+package org.example.currency_exchange.exception;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dto.ExceptionDto;

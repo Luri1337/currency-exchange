@@ -1,4 +1,4 @@
-package org.example.currency_exchange.utils;
+package org.example.currency_exchange.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 

@@ -1,4 +1,4 @@
-package org.example.currency_exchange.exceptions;
+package org.example.currency_exchange.exception;
 
 public class ExchangeRateNotFoundException extends RuntimeException {
     public ExchangeRateNotFoundException(String message) {

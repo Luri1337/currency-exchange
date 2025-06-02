@@ -1,10 +1,10 @@
-package org.example.currency_exchange.utils;
+package org.example.currency_exchange.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.example.currency_exchange.dao.CurrencyDao;
-import org.example.currency_exchange.exceptions.CurrencyAlreadyExistException;
-import org.example.currency_exchange.exceptions.InvalidCurrencyFormatException;
-import org.example.currency_exchange.exceptions.MissingRequiredParameterException;
+import org.example.currency_exchange.exception.CurrencyAlreadyExistException;
+import org.example.currency_exchange.exception.InvalidCurrencyFormatException;
+import org.example.currency_exchange.exception.MissingRequiredParameterException;
 
 public class CurrenciesValidator extends Validator {
     private final CurrencyDao currencyDao = new CurrencyDao();

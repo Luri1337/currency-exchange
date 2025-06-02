@@ -1,4 +1,4 @@
-package org.example.currency_exchange.servlets;
+package org.example.currency_exchange.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,14 +7,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dao.CurrencyDao;
 import org.example.currency_exchange.dao.ExchangeRateDao;
-import org.example.currency_exchange.exceptions.*;
+import org.example.currency_exchange.exception.*;
+import org.example.currency_exchange.model.Currency;
 import org.example.currency_exchange.model.ExchangeRate;
-import org.example.currency_exchange.utils.ExchangeRatesValidator;
-import org.example.currency_exchange.utils.Validator;
+import org.example.currency_exchange.util.ExchangeRatesValidator;
+import org.example.currency_exchange.util.Validator;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet("/exchangeRates")
 public class ExchangeRatesServlet extends HttpServlet {
@@ -42,7 +44,13 @@ public class ExchangeRatesServlet extends HttpServlet {
         try{
             validator.validateRequest(req);
             ObjectMapper objectMapper = new ObjectMapper();
-            ExchangeRate exchangeRate = new ExchangeRate(currencyDao.getById(Integer.parseInt(baseCurrencyID)), currencyDao.getById(Integer.valueOf(targetCurrencyID)), BigDecimal.valueOf(Double.valueOf(rate)));
+            Currency baseCurrency = currencyDao.getById(Integer.parseInt(baseCurrencyID))
+                    .orElseThrow(() ->  new CurrencyNotFoundException("Currency not found"));
+
+            Currency targetCurrency = currencyDao.getById(Integer.parseInt(targetCurrencyID))
+                    .orElseThrow(() -> new CurrencyNotFoundException("Currency not found"));
+
+            ExchangeRate exchangeRate = new ExchangeRate(baseCurrency, targetCurrency, BigDecimal.valueOf(Double.valueOf(rate)));
             exchangeRateDao.create(exchangeRate);
 
             ExchangeRate addedExchangeRate = exchangeRateDao.getById(exchangeRate.getId())

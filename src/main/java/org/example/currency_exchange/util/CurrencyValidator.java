@@ -1,8 +1,8 @@
-package org.example.currency_exchange.utils;
+package org.example.currency_exchange.util;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.example.currency_exchange.exceptions.InvalidCurrencyFormatException;
-import org.example.currency_exchange.exceptions.MissingRequiredParameterException;
+import org.example.currency_exchange.exception.InvalidCurrencyFormatException;
+import org.example.currency_exchange.exception.MissingRequiredParameterException;
 
 public class CurrencyValidator extends Validator {
 

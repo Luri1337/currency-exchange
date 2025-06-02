@@ -1,9 +1,9 @@
-package org.example.currency_exchange.utils;
+package org.example.currency_exchange.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.example.currency_exchange.dao.CurrencyDao;
 import org.example.currency_exchange.dao.ExchangeRateDao;
-import org.example.currency_exchange.exceptions.*;
+import org.example.currency_exchange.exception.*;
 import org.example.currency_exchange.model.Currency;
 
 import java.sql.SQLException;

@@ -1,8 +1,8 @@
-package org.example.currency_exchange.utils;
+package org.example.currency_exchange.util;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.example.currency_exchange.exceptions.InvalidExchangeRateFormatException;
-import org.example.currency_exchange.exceptions.MissingRequiredParameterException;
+import org.example.currency_exchange.exception.InvalidExchangeRateFormatException;
+import org.example.currency_exchange.exception.MissingRequiredParameterException;
 
 public class ExchangeRateValidator extends Validator {
     @Override

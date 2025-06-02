@@ -1,4 +1,4 @@
-package org.example.currency_exchange.servlets;
+package org.example.currency_exchange.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.annotation.WebServlet;
@@ -6,11 +6,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dao.CurrencyDao;
-import org.example.currency_exchange.exceptions.CurrencyNotFoundException;
+import org.example.currency_exchange.exception.CurrencyNotFoundException;
 import org.example.currency_exchange.model.Currency;
-import org.example.currency_exchange.exceptions.ExceptionHandler;
-import org.example.currency_exchange.utils.CurrencyValidator;
-import org.example.currency_exchange.utils.Validator;
+import org.example.currency_exchange.exception.ExceptionHandler;
+import org.example.currency_exchange.util.CurrencyValidator;
+import org.example.currency_exchange.util.Validator;
 
 import java.io.IOException;
 

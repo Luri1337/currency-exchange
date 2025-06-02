@@ -1,9 +1,8 @@
 package org.example.currency_exchange.model;
 
-import java.math.BigDecimal;
-import java.util.Optional;
-
 import lombok.*;
+
+import java.math.BigDecimal;
 
 @Builder
 @Getter
@@ -16,16 +15,9 @@ public class ExchangeRate {
     private Currency targetCurrency;
     private BigDecimal rate;
 
-    public ExchangeRate(int id, Optional<Currency> baseCurr, Optional<Currency> targetCurr, BigDecimal rate) {
-        this.id = id;
-        this.baseCurrency = baseCurr.orElse(baseCurrency);
-        this.targetCurrency = targetCurr.orElse(targetCurrency);
-        this.rate = rate;
-    }
-
-    public ExchangeRate(Optional<Currency> baseCurr, Optional<Currency> targetCurr, BigDecimal rate) {
-        this.baseCurrency = baseCurr.orElse(baseCurrency);
-        this.targetCurrency = targetCurr.orElse(targetCurrency);
+    public ExchangeRate(Currency baseCurrency, Currency targetCurrency, BigDecimal rate) {
+        this.baseCurrency = baseCurrency;
+        this.targetCurrency = targetCurrency;
         this.rate = rate;
     }
 }
