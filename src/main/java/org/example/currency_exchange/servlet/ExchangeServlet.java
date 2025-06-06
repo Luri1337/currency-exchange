@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.model.Exchange;
 import org.example.currency_exchange.service.ExchangeService;
+import org.example.currency_exchange.util.ExchangeRatesValidator;
+import org.example.currency_exchange.util.Validator;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,6 +18,7 @@ import java.sql.SQLException;
 public class ExchangeServlet extends HttpServlet {
     private static final ExchangeService exchangeService = new ExchangeService();
     private static final ObjectMapper mapper = new ObjectMapper();
+    private static final Validator validator = new ExchangeRatesValidator();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,6 +27,7 @@ public class ExchangeServlet extends HttpServlet {
         String amount = req.getParameter("amount");
 
         try{
+
             Exchange exchange = exchangeService.exchange(from, to, amount);
 
             resp.setStatus(HttpServletResponse.SC_OK);

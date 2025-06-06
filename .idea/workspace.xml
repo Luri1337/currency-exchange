@@ -9,32 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4db3f42a-358b-4097-a0ef-127a0f469070" name="Changes" comment="started exchange servlet realization, also something in Exchange service">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/model/Exchange.java" afterDir="false" />
+    <list default="true" id="4db3f42a-358b-4097-a0ef-127a0f469070" name="Changes" comment="ExchangeServlet, Service realization. &#10;Some bug fixes in ExchangeRatesServlet and ExchangeRateDao">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/filter/ApplicationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/appdb.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/appdb.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/CurrencyDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/CurrencyDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/ExchangeRateDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/ExchangeRateDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/CurrencyAlreadyExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exception/CurrencyAlreadyExistException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/CurrencyNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exception/CurrencyNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/ExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exception/ExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/ExchangeRateAlreadyExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exception/ExchangeRateAlreadyExistException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/ExchangeRateNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exception/ExchangeRateNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/InvalidCurrencyFormatException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exception/InvalidCurrencyFormatException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/InvalidExchangeRateFormatException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exception/InvalidExchangeRateFormatException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exceptions/MissingRequiredParameterException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/exception/MissingRequiredParameterException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/model/ExchangeRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/model/ExchangeRate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dto/ExchangeRateDto.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/service/ExchangeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/service/ExchangeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/CurrenciesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/CurrenciesServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/CurrencyServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/CurrencyServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRateServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/ExchangeRateServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeRatesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/ExchangeRatesServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlets/ExchangeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/ExchangeServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/CurrenciesValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/CurrenciesValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/CurrencyValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/CurrencyValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/DataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/DataSource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/ExchangeRateValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/ExchangeRateValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/ExchangeRatesValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/ExchangeRatesValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/utils/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/Validator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/ExchangeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/ExchangeServlet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,35 +70,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.currency-exchange [clean].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Tomcat Server.Tomcat 11.0.4.executor": "Run",
-    "Tomcat Server.Unnamed.executor": "Run",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Dima/IdeaProjects",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.currency-exchange [clean].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Tomcat Server.Tomcat 11.0.4.executor&quot;: &quot;Run&quot;,
+    &quot;Tomcat Server.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Dima/IdeaProjects/currency-exchange/src/main/resources&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Dima\IdeaProjects\currency-exchange\src\main\resources" />
+      <recent name="C:\Users\Dima\IdeaProjects\currency-exchange\src\main\webapp" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Dima\IdeaProjects\currency-exchange\src\main\resources" />
     </key>
@@ -277,7 +263,8 @@
       <workItem from="1748461120642" duration="4753000" />
       <workItem from="1748541696368" duration="4474000" />
       <workItem from="1748768289451" duration="11000" />
-      <workItem from="1748873030845" duration="11592000" />
+      <workItem from="1748873030845" duration="11842000" />
+      <workItem from="1749232262111" duration="4314000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -391,7 +378,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748546829595</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="ExchangeServlet, Service realization. &#10;Some bug fixes in ExchangeRatesServlet and ExchangeRateDao">
+      <option name="closed" value="true" />
+      <created>1748892434795</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1748892434795</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -423,7 +418,8 @@
     <MESSAGE value="TODOS" />
     <MESSAGE value="validation for ExchangeRateServlet" />
     <MESSAGE value="started exchange servlet realization, also something in Exchange service" />
-    <option name="LAST_COMMIT_MESSAGE" value="started exchange servlet realization, also something in Exchange service" />
+    <MESSAGE value="ExchangeServlet, Service realization. &#10;Some bug fixes in ExchangeRatesServlet and ExchangeRateDao" />
+    <option name="LAST_COMMIT_MESSAGE" value="ExchangeServlet, Service realization. &#10;Some bug fixes in ExchangeRatesServlet and ExchangeRateDao" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -436,24 +432,6 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/ExchangeRatesServlet.java</url>
-          <line>39</line>
-          <properties class="org.example.currency_exchange.servlet.ExchangeRatesServlet" method="doPost">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/currency_exchange/service/ExchangeService.java</url>
-          <line>19</line>
-          <properties class="org.example.currency_exchange.service.ExchangeService" method="getConvertedAmount">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

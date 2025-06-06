@@ -19,13 +19,13 @@ public class ExchangeService {
 
     private BigDecimal getConvertedAmount(String from, String to, String amount) throws SQLException {
 
-        if (!exchangeRateDao.getByCodePair(from, to).isEmpty()) {
+        if (exchangeRateDao.getByCodePair(from, to).isPresent()) {
             return exchangeRateDao.getByCodePair(from, to).get().getRate().multiply(BigDecimal.valueOf(Integer.parseInt(amount)));
         }
-        if (!exchangeRateDao.getByCodePair(to, from).isEmpty()) {
+        if (exchangeRateDao.getByCodePair(to, from).isPresent()) {
             return (BigDecimal.ONE.divide(exchangeRateDao.getByCodePair(to, from).get().getRate())).multiply(BigDecimal.valueOf(Integer.parseInt(amount)));
         }
-        if (!exchangeRateDao.getByCodePair("USD", from).isEmpty() && !exchangeRateDao.getByCodePair("USD", to).isEmpty()) {
+        if (exchangeRateDao.getByCodePair("USD", from).isPresent() && !exchangeRateDao.getByCodePair("USD", to).isEmpty()) {
             return (exchangeRateDao.getByCodePair("USD", to).get().getRate().divide(exchangeRateDao.getByCodePair("USD", from).get().getRate(), new MathContext(10, RoundingMode.HALF_UP)))
                     .multiply(BigDecimal.valueOf(Integer.parseInt(amount)));
         }
@@ -33,9 +33,9 @@ public class ExchangeService {
     }
 
     public Exchange exchange(String from, String to, String amount) throws SQLException {
-        return new Exchange((Optional<Currency>) currencyDao.getByCode(from), (Optional<Currency>) currencyDao.getByCode(to),
-                getConvertedAmount(from, to, amount).divide(BigDecimal.valueOf(Integer.valueOf(amount))),
-                BigDecimal.valueOf(Integer.valueOf(amount)), getConvertedAmount(from, to, amount));
+        return new Exchange(currencyDao.getByCode(from), currencyDao.getByCode(to),
+                getConvertedAmount(from, to, amount).divide(BigDecimal.valueOf(Integer.parseInt(amount))),
+                BigDecimal.valueOf(Integer.parseInt(amount)), getConvertedAmount(from, to, amount));
     }
 
 
