@@ -6,11 +6,7 @@ import jakarta.servlet.annotation.WebFilter;
 
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {
-        "/currencies",
-        "/currency",
-        ""
-})
+
 
 public class ApplicationFilter implements Filter {
     @Override

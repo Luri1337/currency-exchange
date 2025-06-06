@@ -43,7 +43,6 @@ public class CurrencyDao implements CrudDao<Currency> {
         return currency;
     }
 
-
     @Override
     public Currency update(Currency currency) {
         return null;
@@ -87,7 +86,6 @@ public class CurrencyDao implements CrudDao<Currency> {
         }
         return currency;
     }
-
 
 
     public Optional<Currency> getByCode(String code) {

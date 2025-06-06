@@ -18,7 +18,7 @@ import java.sql.SQLException;
 public class ExchangeServlet extends HttpServlet {
     private static final ExchangeService exchangeService = new ExchangeService();
     private static final ObjectMapper mapper = new ObjectMapper();
-    private static final Validator validator = new ExchangeRatesValidator();
+    private static final Validator validator = new ExchangeRatesValidator(); 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

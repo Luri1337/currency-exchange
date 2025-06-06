@@ -9,14 +9,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4db3f42a-358b-4097-a0ef-127a0f469070" name="Changes" comment="ExchangeServlet, Service realization. &#10;Some bug fixes in ExchangeRatesServlet and ExchangeRateDao">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/filter/ApplicationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/appdb.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/appdb.db" afterDir="false" />
+    <list default="true" id="4db3f42a-358b-4097-a0ef-127a0f469070" name="Changes" comment="commit bd">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dto/ExchangeRateDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/CrudDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/CrudDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/CurrencyDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/dao/CurrencyDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/filter/ApplicationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/filter/ApplicationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/model/Exchange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/model/Exchange.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/service/ExchangeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/service/ExchangeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/CurrencyServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/CurrencyServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/ExchangeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/ExchangeServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/DataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/DataSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/appdb.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/appdb.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,34 +75,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Maven.currency-exchange [clean].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat 11.0.4.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Dima/IdeaProjects/currency-exchange/src/main/resources&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.currency-exchange [clean].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Tomcat Server.Tomcat 11.0.4.executor": "Run",
+    "Tomcat Server.Unnamed.executor": "Run",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Dima/IdeaProjects/currency-exchange/src/main/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Dima\IdeaProjects\currency-exchange\src\main\resources" />
@@ -265,6 +270,7 @@
       <workItem from="1748768289451" duration="11000" />
       <workItem from="1748873030845" duration="11842000" />
       <workItem from="1749232262111" duration="4314000" />
+      <workItem from="1749237270805" duration="4473000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -386,7 +392,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748892434795</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="commit bd">
+      <option name="closed" value="true" />
+      <created>1749237313549</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1749237313549</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -419,7 +433,8 @@
     <MESSAGE value="validation for ExchangeRateServlet" />
     <MESSAGE value="started exchange servlet realization, also something in Exchange service" />
     <MESSAGE value="ExchangeServlet, Service realization. &#10;Some bug fixes in ExchangeRatesServlet and ExchangeRateDao" />
-    <option name="LAST_COMMIT_MESSAGE" value="ExchangeServlet, Service realization. &#10;Some bug fixes in ExchangeRatesServlet and ExchangeRateDao" />
+    <MESSAGE value="commit bd" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit bd" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

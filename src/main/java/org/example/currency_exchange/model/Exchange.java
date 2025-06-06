@@ -18,9 +18,9 @@ public class Exchange {
     private BigDecimal amount;
     private BigDecimal convertedAmount;
 
-    public Exchange(Optional<Currency> baseCurr, Optional<Currency> targetCurr, BigDecimal rate, BigDecimal amount, BigDecimal convertedAmount) {
-        this.baseCurrency = baseCurr.orElse(baseCurrency);
-        this.targetCurrency = targetCurr.orElse(targetCurrency);
+    public Exchange(Currency baseCurrency, Currency targetCurrency, BigDecimal rate, BigDecimal amount, BigDecimal convertedAmount) {
+        this.baseCurrency = baseCurrency;
+        this.targetCurrency = targetCurrency;
         this.rate = rate;
         this.amount = amount;
         this.convertedAmount = convertedAmount;
