@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dao.CurrencyDao;
-import org.example.currency_exchange.exception.CurrencyNotFoundException;
+import org.example.currency_exchange.exception.currencyException.CurrencyNotFoundException;
 import org.example.currency_exchange.exception.ExceptionHandler;
 import org.example.currency_exchange.model.Currency;
 import org.example.currency_exchange.util.CurrencyValidator;
@@ -21,9 +21,6 @@ public class CurrencyServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("aplication/json");
-        resp.setCharacterEncoding("UTF-8");
-
         String pathInfo = req.getPathInfo();
 
         try {
@@ -36,11 +33,11 @@ public class CurrencyServlet extends HttpServlet {
             if (e.getMessage().equals("Currency not found")) {
                 ExceptionHandler.handleException(resp, HttpServletResponse.SC_NOT_FOUND, "Currency not found");
             } else if (e.getMessage().equals("Required parameter is missing")) {
-                ExceptionHandler.handleException(resp, 400, "Required parameter is missing");
+                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Required parameter is missing");
             } else if (e.getMessage().equals("Invalid currency code format")) {
-                ExceptionHandler.handleException(resp, 400, "Invalid currency code format");
+                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Invalid currency code format");
             } else {
-                ExceptionHandler.handleException(resp, 500, "Internal Server Error");
+                ExceptionHandler.handleException(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error");
             }
         }
     }

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class CurrencyDao implements CrudDao<Currency> {
     @Override
-    public Currency create(Currency currency) {
+    public void create(Currency currency) {
         String query = "INSERT INTO currencies (code, fullname, sign) VALUES (?, ?, ?)";
 
         try (Connection conn = DataSource.getConnection();
@@ -26,6 +26,7 @@ public class CurrencyDao implements CrudDao<Currency> {
             conn.commit();
 
             if (affectedRows == 0) {
+                conn.rollback();
                 throw new SQLException("Creating currency failed, no rows affected.");
             }
 
@@ -33,6 +34,7 @@ public class CurrencyDao implements CrudDao<Currency> {
                 if (rs.next()) {
                     currency.setId(rs.getInt(1));
                 } else {
+                    conn.rollback();
                     throw new SQLException("Creating currency failed, no ID obtained.");
                 }
             }
@@ -40,12 +42,10 @@ public class CurrencyDao implements CrudDao<Currency> {
             throw new RuntimeException(e);
         }
 
-        return currency;
     }
 
     @Override
-    public Currency update(Currency currency) {
-        return null;
+    public void update(Currency currency) {
     }
 
     @Override

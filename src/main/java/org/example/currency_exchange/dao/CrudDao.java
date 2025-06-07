@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CrudDao<T> {
-    T create(T t);
+    void create(T t);
 
-    T update(T t) throws SQLException;
+    void update(T t) throws SQLException;
 
     List<T> getAll() throws SQLException;
 

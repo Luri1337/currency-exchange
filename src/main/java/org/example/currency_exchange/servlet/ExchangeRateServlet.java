@@ -6,11 +6,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dao.ExchangeRateDao;
-import org.example.currency_exchange.exception.ExchangeRateNotFoundException;
-import org.example.currency_exchange.exception.InvalidExchangeRateFormatException;
+import org.example.currency_exchange.exception.ExceptionHandler;
+import org.example.currency_exchange.exception.exchangeRateException.ExchangeRateNotFoundException;
+import org.example.currency_exchange.exception.exchangeRateException.InvalidExchangeRateFormatException;
 import org.example.currency_exchange.exception.MissingRequiredParameterException;
 import org.example.currency_exchange.model.ExchangeRate;
-import org.example.currency_exchange.exception.ExceptionHandler;
 import org.example.currency_exchange.util.ExchangeRateValidator;
 
 import java.io.IOException;
@@ -31,24 +31,20 @@ public class ExchangeRateServlet extends HttpServlet {
         try {
             validator.validateRequest(req);
             ExchangeRate exchangeRate = exchangeRateDao.getByCodePair(baseCurrencyCode, targetCurrencyCode)
-                    .orElseThrow(() -> new ExchangeRateNotFoundException("Exchange rate not found") );
+                    .orElseThrow(() -> new ExchangeRateNotFoundException("Exchange rate not found"));
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write(mapper.writeValueAsString(exchangeRate));
         } catch (Exception e) {
-            if(e.getMessage().equals("Exchange rate not found")) {
-                ExceptionHandler.handleException(resp, 404, "Exchange rate not found");
-            }
-            else if(e.getMessage().equals("Currency not found")) {
-                ExceptionHandler.handleException(resp, 404, "Currency not found");
-            }
-            else if(e.getMessage().equals("Required parameter is missing")){
-                ExceptionHandler.handleException(resp, 400, "Required parameter is missing");
-            }
-            else if(e.getMessage().equals("Invalid code pair")) {
-                ExceptionHandler.handleException(resp, 400, "Invalid code pair");
-            }
-            else {
-                ExceptionHandler.handleException(resp, 500, "Internal Server Error");
+            if (e.getMessage().equals("Exchange rate not found")) {
+                ExceptionHandler.handleException(resp, HttpServletResponse.SC_NOT_FOUND, "Exchange rate not found");
+            } else if (e.getMessage().equals("Currency not found")) {
+                ExceptionHandler.handleException(resp, HttpServletResponse.SC_NOT_FOUND, "Currency not found");
+            } else if (e.getMessage().equals("Required parameter is missing")) {
+                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Required parameter is missing");
+            } else if (e.getMessage().equals("Invalid code pair")) {
+                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Invalid code pair");
+            } else {
+                ExceptionHandler.handleException(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error");
             }
         }
     }
@@ -59,7 +55,7 @@ public class ExchangeRateServlet extends HttpServlet {
         String targetCurrencyCode = path.substring(17).toUpperCase();
         String rate = req.getParameter("rate");
 
-        try{
+        try {
             validator.validateRequest(req);
 
             ExchangeRate exchangeRate = exchangeRateDao.getByCodePair(baseCurrencyCode, targetCurrencyCode)
@@ -70,14 +66,12 @@ public class ExchangeRateServlet extends HttpServlet {
 
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write(mapper.writeValueAsString(exchangeRate));
-        }catch (MissingRequiredParameterException | InvalidExchangeRateFormatException e){
-            ExceptionHandler.handleException(resp, 400, e.getMessage());
-        }
-        catch (ExchangeRateNotFoundException e){
-            ExceptionHandler.handleException(resp, 404, e.getMessage());
-        }
-        catch(Exception e){
-            ExceptionHandler.handleException(resp, 500, "Internal Server Error");
+        } catch (MissingRequiredParameterException | InvalidExchangeRateFormatException e) {
+            ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+        } catch (ExchangeRateNotFoundException e) {
+            ExceptionHandler.handleException(resp, HttpServletResponse.SC_NOT_FOUND, e.getMessage());
+        } catch (Exception e) {
+            ExceptionHandler.handleException(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error");
         }
     }
 }

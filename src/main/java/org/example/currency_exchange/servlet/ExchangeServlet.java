@@ -6,7 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.currency_exchange.model.Exchange;
+import org.example.currency_exchange.dto.ExchangeDto;
 import org.example.currency_exchange.service.ExchangeService;
 import org.example.currency_exchange.util.ExchangeRatesValidator;
 import org.example.currency_exchange.util.Validator;
@@ -28,7 +28,7 @@ public class ExchangeServlet extends HttpServlet {
 
         try{
 
-            Exchange exchange = exchangeService.exchange(from, to, amount);
+            ExchangeDto exchange = exchangeService.exchange(from, to, amount);
 
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write(mapper.writeValueAsString(exchange));

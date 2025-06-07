@@ -4,6 +4,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.example.currency_exchange.dao.CurrencyDao;
 import org.example.currency_exchange.dao.ExchangeRateDao;
 import org.example.currency_exchange.exception.*;
+import org.example.currency_exchange.exception.currencyException.CurrencyNotFoundException;
+import org.example.currency_exchange.exception.exchangeRateException.ExchangeRateAlreadyExistException;
+import org.example.currency_exchange.exception.exchangeRateException.InvalidExchangeRateFormatException;
 import org.example.currency_exchange.model.Currency;
 
 import java.sql.SQLException;

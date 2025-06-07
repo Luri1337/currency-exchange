@@ -1,7 +1,7 @@
 package org.example.currency_exchange.dao;
 
-import org.example.currency_exchange.exception.CurrencyNotFoundException;
-import org.example.currency_exchange.exception.ExchangeRateNotFoundException;
+import org.example.currency_exchange.exception.currencyException.CurrencyNotFoundException;
+import org.example.currency_exchange.exception.exchangeRateException.ExchangeRateNotFoundException;
 import org.example.currency_exchange.model.Currency;
 import org.example.currency_exchange.model.ExchangeRate;
 import org.example.currency_exchange.util.DataSource;
@@ -15,7 +15,7 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
     private static final CurrencyDao currencyDao = new CurrencyDao();
 
     @Override
-    public ExchangeRate create(ExchangeRate exchangeRate) {
+    public void create(ExchangeRate exchangeRate) {
         String query = "INSERT INTO exchangeRates(basecurrencyid, targetcurrencyid, rate) VALUES(?, ?, ?)";
 
         try (Connection conn = DataSource.getConnection();
@@ -31,6 +31,7 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
             conn.commit();
 
             if (affectedRows == 0) {
+                conn.rollback();
                 throw new SQLException("Creating ExchangeRate failed, no rows affected.");
             }
 
@@ -38,18 +39,18 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
                 if (rs.next()) {
                     exchangeRate.setId(rs.getInt(1));
                 } else {
+                    conn.rollback();
                     throw new SQLException("Creating ExchangeRate failed, no ID obtained.");
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return exchangeRate;
 
     }
 
     @Override
-    public ExchangeRate update(ExchangeRate exchangeRate) throws SQLException {
+    public void update(ExchangeRate exchangeRate) throws SQLException {
         String query = "update exchangeRates set rate = ? where id = ?";
 
         try (Connection conn = DataSource.getConnection();
@@ -62,7 +63,6 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return exchangeRate;
     }
 
     @Override

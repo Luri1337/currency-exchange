@@ -36,17 +36,17 @@ public class CurrenciesServlet extends HttpServlet {
 
         } catch (Exception e) {
             if (e.getMessage().equals("Missing required currency field")) {
-                ExceptionHandler.handleException(resp, 400, "Missing required currency field");
+                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Missing required currency field");
             } else if (e.getMessage().equals("Invalid currency name format")) {
-                ExceptionHandler.handleException(resp, 400, "Invalid currency name format");
+                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Invalid currency name format");
             } else if (e.getMessage().equals("Invalid currency code format")) {
-                ExceptionHandler.handleException(resp, 400, "Invalid currency code format");
+                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Invalid currency code format");
             } else if (e.getMessage().equals("Invalid currency sign format")) {
-                ExceptionHandler.handleException(resp, 400, "Invalid currency sign format");
+                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Invalid currency sign format");
             } else if (e.getMessage().equals("Currency already exists")) {
-                ExceptionHandler.handleException(resp, 409, "Currency already exists");
+                ExceptionHandler.handleException(resp, HttpServletResponse.SC_CONFLICT, "Currency already exists");
             } else {
-                ExceptionHandler.handleException(resp, 500, "Internal Server Error");
+                ExceptionHandler.handleException(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error");
             }
 
         }

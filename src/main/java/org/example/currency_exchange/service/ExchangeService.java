@@ -2,9 +2,9 @@ package org.example.currency_exchange.service;
 
 import org.example.currency_exchange.dao.CurrencyDao;
 import org.example.currency_exchange.dao.ExchangeRateDao;
-import org.example.currency_exchange.exception.CurrencyNotFoundException;
+import org.example.currency_exchange.dto.ExchangeDto;
+import org.example.currency_exchange.exception.currencyException.CurrencyNotFoundException;
 import org.example.currency_exchange.model.Currency;
-import org.example.currency_exchange.model.Exchange;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -34,11 +34,11 @@ public class ExchangeService {
         return BigDecimal.ZERO;
     }
 
-    public Exchange exchange(String from, String to, String amount) throws SQLException {
+    public ExchangeDto exchange(String from, String to, String amount) throws SQLException {
         Currency fromCurrency = currencyDao.getByCode(from).orElseThrow(() -> new CurrencyNotFoundException("Currency not found"));
         Currency toCurrency = currencyDao.getByCode(to).orElseThrow(() -> new CurrencyNotFoundException("Currency not found"));
 
-        return new Exchange(fromCurrency,
+        return new ExchangeDto(fromCurrency,
                 toCurrency,
                 getConvertedAmount(from, to, amount).divide(BigDecimal.valueOf(Integer.parseInt(amount))),
                 BigDecimal.valueOf(Integer.parseInt(amount)),
