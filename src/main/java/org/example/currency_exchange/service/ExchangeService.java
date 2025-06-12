@@ -5,14 +5,13 @@ import org.example.currency_exchange.dao.ExchangeRateDao;
 import org.example.currency_exchange.dto.ExchangeDto;
 import org.example.currency_exchange.exception.currencyException.CurrencyNotFoundException;
 import org.example.currency_exchange.model.Currency;
+import org.example.currency_exchange.util.AppMassages;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.sql.SQLException;
 
-// TODO: придумать логику для  "GET /exchange?from=BASE_CURRENCY_CODE&to=TARGET_CURRENCY_CODE&amount=$AMOUNT"
-// придумать как формировать ответ, понять нужна ли еще одна модель отдельно для exchange
 public class ExchangeService {
     private final CurrencyDao currencyDao = new CurrencyDao();
     private final ExchangeRateDao exchangeRateDao = new ExchangeRateDao();
@@ -35,8 +34,8 @@ public class ExchangeService {
     }
 
     public ExchangeDto exchange(String from, String to, String amount) throws SQLException {
-        Currency fromCurrency = currencyDao.getByCode(from).orElseThrow(() -> new CurrencyNotFoundException("Currency not found"));
-        Currency toCurrency = currencyDao.getByCode(to).orElseThrow(() -> new CurrencyNotFoundException("Currency not found"));
+        Currency fromCurrency = currencyDao.getByCode(from).orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
+        Currency toCurrency = currencyDao.getByCode(to).orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
 
         return new ExchangeDto(fromCurrency,
                 toCurrency,

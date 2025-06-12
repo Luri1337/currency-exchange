@@ -4,6 +4,7 @@ import org.example.currency_exchange.exception.currencyException.CurrencyNotFoun
 import org.example.currency_exchange.exception.exchangeRateException.ExchangeRateNotFoundException;
 import org.example.currency_exchange.model.Currency;
 import org.example.currency_exchange.model.ExchangeRate;
+import org.example.currency_exchange.util.AppMassages;
 import org.example.currency_exchange.util.DataSource;
 
 import java.sql.*;
@@ -32,7 +33,7 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
 
             if (affectedRows == 0) {
                 conn.rollback();
-                throw new SQLException("Creating ExchangeRate failed, no rows affected.");
+                throw new SQLException(AppMassages.CREATING_EXCHANGE_RATE_FAilED);
             }
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
@@ -40,7 +41,7 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
                     exchangeRate.setId(rs.getInt(1));
                 } else {
                     conn.rollback();
-                    throw new SQLException("Creating ExchangeRate failed, no ID obtained.");
+                    throw new SQLException(AppMassages.CREATING_EXCHANGE_RATE_FAilED);
                 }
             }
         } catch (SQLException e) {
@@ -111,10 +112,10 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
              PreparedStatement ps = conn.prepareStatement(query)) {
 
             Currency baseCurrency = currencyDao.getByCode(base)
-                    .orElseThrow(() -> new CurrencyNotFoundException("Currency not found"));
+                    .orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
 
             Currency targetCurrency = currencyDao.getByCode(target)
-                    .orElseThrow(() -> new CurrencyNotFoundException("Currency not found"));
+                    .orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
 
             ps.setInt(1, baseCurrency.getId());
             ps.setInt(2, targetCurrency.getId());
@@ -124,7 +125,7 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
             }
             return Optional.empty();
         } catch (CurrencyNotFoundException e) {
-            throw new ExchangeRateNotFoundException("ExchangeRate not found");
+            throw new ExchangeRateNotFoundException(AppMassages.EXCHANGE_RATE_NOT_FOUND);
         } catch (Exception e) {
             throw e;
         }
@@ -132,8 +133,8 @@ public class ExchangeRateDao implements CrudDao<ExchangeRate> {
 
     private ExchangeRate getExchangeRate(ResultSet rs) throws SQLException {
         return new ExchangeRate(rs.getInt("id"),
-                currencyDao.getById(rs.getInt("baseCurrencyId")).orElseThrow(() -> new CurrencyNotFoundException("Currency not found")),
-                currencyDao.getById(rs.getInt("targetCurrencyId")).orElseThrow(() -> new CurrencyNotFoundException("Currency not found")),
+                currencyDao.getById(rs.getInt("baseCurrencyId")).orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND)),
+                currencyDao.getById(rs.getInt("targetCurrencyId")).orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND)),
                 rs.getBigDecimal("rate"));
     }
 }

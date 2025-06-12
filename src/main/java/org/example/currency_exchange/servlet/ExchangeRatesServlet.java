@@ -13,8 +13,9 @@ import org.example.currency_exchange.exception.exchangeRateException.ExchangeRat
 import org.example.currency_exchange.exception.exchangeRateException.InvalidExchangeRateFormatException;
 import org.example.currency_exchange.model.Currency;
 import org.example.currency_exchange.model.ExchangeRate;
-import org.example.currency_exchange.util.ExchangeRatesValidator;
-import org.example.currency_exchange.util.Validator;
+import org.example.currency_exchange.util.AppMassages;
+import org.example.currency_exchange.util.validation.ExchangeRatesValidator;
+import org.example.currency_exchange.util.validation.Validator;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -33,7 +34,7 @@ public class ExchangeRatesServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write(new ObjectMapper().writeValueAsString(exchangeRates));
         } catch (Exception e) {
-            ExceptionHandler.handleException(resp, 500, "Internal Server Error");
+            ExceptionHandler.handleException(resp, 500, AppMassages.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -46,16 +47,16 @@ public class ExchangeRatesServlet extends HttpServlet {
             validator.validateRequest(req);
             ObjectMapper objectMapper = new ObjectMapper();
             Currency baseCurrency = currencyDao.getById(Integer.parseInt(baseCurrencyID))
-                    .orElseThrow(() -> new CurrencyNotFoundException("Currency not found"));
+                    .orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
 
             Currency targetCurrency = currencyDao.getById(Integer.parseInt(targetCurrencyID))
-                    .orElseThrow(() -> new CurrencyNotFoundException("Currency not found"));
+                    .orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
 
             ExchangeRate exchangeRate = new ExchangeRate(baseCurrency, targetCurrency, BigDecimal.valueOf(Double.parseDouble(rate)));
             exchangeRateDao.create(exchangeRate);
 
             ExchangeRate addedExchangeRate = exchangeRateDao.getById(exchangeRate.getId())
-                    .orElseThrow(() -> new RuntimeException("Exchange rate not found"));
+                    .orElseThrow(() -> new RuntimeException(AppMassages.EXCHANGE_RATE_NOT_FOUND));
 
             resp.setStatus(HttpServletResponse.SC_CREATED);
             resp.getWriter().write(objectMapper.writeValueAsString(addedExchangeRate));

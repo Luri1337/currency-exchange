@@ -7,11 +7,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dao.ExchangeRateDao;
 import org.example.currency_exchange.exception.ExceptionHandler;
+import org.example.currency_exchange.exception.MissingRequiredParameterException;
+import org.example.currency_exchange.exception.currencyException.CurrencyNotFoundException;
 import org.example.currency_exchange.exception.exchangeRateException.ExchangeRateNotFoundException;
 import org.example.currency_exchange.exception.exchangeRateException.InvalidExchangeRateFormatException;
-import org.example.currency_exchange.exception.MissingRequiredParameterException;
 import org.example.currency_exchange.model.ExchangeRate;
-import org.example.currency_exchange.util.ExchangeRateValidator;
+import org.example.currency_exchange.util.AppMassages;
+import org.example.currency_exchange.util.validation.ExchangeRateValidator;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -31,21 +33,15 @@ public class ExchangeRateServlet extends HttpServlet {
         try {
             validator.validateRequest(req);
             ExchangeRate exchangeRate = exchangeRateDao.getByCodePair(baseCurrencyCode, targetCurrencyCode)
-                    .orElseThrow(() -> new ExchangeRateNotFoundException("Exchange rate not found"));
+                    .orElseThrow(() -> new ExchangeRateNotFoundException(AppMassages.EXCHANGE_RATE_NOT_FOUND));
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write(mapper.writeValueAsString(exchangeRate));
+        } catch (MissingRequiredParameterException | InvalidExchangeRateFormatException e) {
+            ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+        } catch (ExchangeRateNotFoundException | CurrencyNotFoundException e) {
+            ExceptionHandler.handleException(resp, HttpServletResponse.SC_NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            if (e.getMessage().equals("Exchange rate not found")) {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_NOT_FOUND, "Exchange rate not found");
-            } else if (e.getMessage().equals("Currency not found")) {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_NOT_FOUND, "Currency not found");
-            } else if (e.getMessage().equals("Required parameter is missing")) {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Required parameter is missing");
-            } else if (e.getMessage().equals("Invalid code pair")) {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Invalid code pair");
-            } else {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error");
-            }
+            ExceptionHandler.handleException(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, AppMassages.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -59,7 +55,7 @@ public class ExchangeRateServlet extends HttpServlet {
             validator.validateRequest(req);
 
             ExchangeRate exchangeRate = exchangeRateDao.getByCodePair(baseCurrencyCode, targetCurrencyCode)
-                    .orElseThrow(() -> new ExchangeRateNotFoundException("Exchange rate not found"));
+                    .orElseThrow(() -> new ExchangeRateNotFoundException(AppMassages.EXCHANGE_RATE_NOT_FOUND));
 
             exchangeRate.setRate(new BigDecimal(rate));
             exchangeRateDao.update(exchangeRate);
@@ -71,7 +67,7 @@ public class ExchangeRateServlet extends HttpServlet {
         } catch (ExchangeRateNotFoundException e) {
             ExceptionHandler.handleException(resp, HttpServletResponse.SC_NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            ExceptionHandler.handleException(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error");
+            ExceptionHandler.handleException(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, AppMassages.INTERNAL_SERVER_ERROR);
         }
     }
 }

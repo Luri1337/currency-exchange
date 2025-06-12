@@ -1,13 +1,14 @@
-package org.example.currency_exchange.util;
+package org.example.currency_exchange.util.validation;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.example.currency_exchange.dao.CurrencyDao;
 import org.example.currency_exchange.dao.ExchangeRateDao;
-import org.example.currency_exchange.exception.*;
+import org.example.currency_exchange.exception.MissingRequiredParameterException;
 import org.example.currency_exchange.exception.currencyException.CurrencyNotFoundException;
 import org.example.currency_exchange.exception.exchangeRateException.ExchangeRateAlreadyExistException;
 import org.example.currency_exchange.exception.exchangeRateException.InvalidExchangeRateFormatException;
 import org.example.currency_exchange.model.Currency;
+import org.example.currency_exchange.util.AppMassages;
 
 import java.sql.SQLException;
 
@@ -26,27 +27,27 @@ public class ExchangeRatesValidator extends Validator {
 
     private void validateExchangeRate(String baseCurrencyID, String targetCurrencyID, String rate) throws SQLException {
         if (baseCurrencyID.isBlank() || targetCurrencyID.isBlank() || rate == null || rate.isBlank()) {
-            throw new MissingRequiredParameterException("Missing required exchangeRate field");
+            throw new MissingRequiredParameterException(AppMassages.MISSING_REQUIRED_PARAMETER);
         }
 
-        if(!baseCurrencyID.matches("^\\d+$")){
-            throw new InvalidExchangeRateFormatException("Invalid ID format");
+        if (!baseCurrencyID.matches("^\\d+$")) {
+            throw new InvalidExchangeRateFormatException(AppMassages.INVALID_ID_FORMAT);
         }
-        else if(!targetCurrencyID.matches("^\\d+$")){
-            throw new InvalidExchangeRateFormatException("Invalid ID format");
+        if (!targetCurrencyID.matches("^\\d+$")) {
+            throw new InvalidExchangeRateFormatException(AppMassages.INVALID_ID_FORMAT);
         }
-        else if(!rate.matches("^\\d+(\\.\\d+)?$")){
-            throw new InvalidExchangeRateFormatException("Invalid rate format");
+        if (!rate.matches("^\\d+(\\.\\d+)?$")) {
+            throw new InvalidExchangeRateFormatException(AppMassages.INVALID_RATE_FORMAT);
         }
 
         Currency baseCurrency = currencyDao.getById(Integer.parseInt(baseCurrencyID))
-                .orElseThrow(() -> new CurrencyNotFoundException("Currency not found"));
+                .orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
 
         Currency targetCurrency = currencyDao.getById(Integer.parseInt(targetCurrencyID))
-                .orElseThrow(() -> new CurrencyNotFoundException("Currency not found"));
+                .orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
 
-        if(checkIfPresent(baseCurrency, targetCurrency)){
-            throw new ExchangeRateAlreadyExistException("ExchangeRate already exists");
+        if (checkIfPresent(baseCurrency, targetCurrency)) {
+            throw new ExchangeRateAlreadyExistException(AppMassages.EXCHANGE_RATE_ALREADY_EXISTS);
         }
     }
 

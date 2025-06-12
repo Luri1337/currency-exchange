@@ -6,11 +6,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dao.CurrencyDao;
-import org.example.currency_exchange.exception.currencyException.CurrencyNotFoundException;
 import org.example.currency_exchange.exception.ExceptionHandler;
+import org.example.currency_exchange.exception.MissingRequiredParameterException;
+import org.example.currency_exchange.exception.currencyException.CurrencyNotFoundException;
+import org.example.currency_exchange.exception.currencyException.InvalidCurrencyFormatException;
 import org.example.currency_exchange.model.Currency;
-import org.example.currency_exchange.util.CurrencyValidator;
-import org.example.currency_exchange.util.Validator;
+import org.example.currency_exchange.util.AppMassages;
+import org.example.currency_exchange.util.validation.CurrencyValidator;
+import org.example.currency_exchange.util.validation.Validator;
 
 import java.io.IOException;
 
@@ -27,18 +30,14 @@ public class CurrencyServlet extends HttpServlet {
             validator.validateRequest(req);
             String currencyCode = pathInfo.substring(1).toUpperCase();
             Currency currency = currencyDao.getByCode(currencyCode)
-                    .orElseThrow(() -> new CurrencyNotFoundException("Currency not found"));
+                    .orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
             resp.getWriter().write(new ObjectMapper().writeValueAsString(currency));
+        } catch (CurrencyNotFoundException e) {
+            ExceptionHandler.handleException(resp, HttpServletResponse.SC_NOT_FOUND, e.getMessage());
+        } catch (MissingRequiredParameterException | InvalidCurrencyFormatException e) {
+            ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
-            if (e.getMessage().equals("Currency not found")) {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_NOT_FOUND, "Currency not found");
-            } else if (e.getMessage().equals("Required parameter is missing")) {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Required parameter is missing");
-            } else if (e.getMessage().equals("Invalid currency code format")) {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Invalid currency code format");
-            } else {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error");
-            }
+            ExceptionHandler.handleException(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, AppMassages.INTERNAL_SERVER_ERROR);
         }
     }
 }

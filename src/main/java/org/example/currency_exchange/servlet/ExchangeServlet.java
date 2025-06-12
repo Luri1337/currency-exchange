@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dto.ExchangeDto;
 import org.example.currency_exchange.service.ExchangeService;
-import org.example.currency_exchange.util.ExchangeRatesValidator;
-import org.example.currency_exchange.util.Validator;
+import org.example.currency_exchange.util.validation.ExchangeRatesValidator;
+import org.example.currency_exchange.util.validation.Validator;
 
 import java.io.IOException;
 import java.sql.SQLException;

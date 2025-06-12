@@ -8,8 +8,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.currency_exchange.dao.CurrencyDao;
 import org.example.currency_exchange.exception.ExceptionHandler;
+import org.example.currency_exchange.exception.MissingRequiredParameterException;
+import org.example.currency_exchange.exception.currencyException.CurrencyAlreadyExistException;
+import org.example.currency_exchange.exception.currencyException.InvalidCurrencyFormatException;
 import org.example.currency_exchange.model.Currency;
-import org.example.currency_exchange.util.CurrenciesValidator;
+import org.example.currency_exchange.util.AppMassages;
+import org.example.currency_exchange.util.validation.CurrenciesValidator;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,21 +38,14 @@ public class CurrenciesServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_CREATED);
             resp.getWriter().write(new ObjectMapper().writeValueAsString(currency));
 
-        } catch (Exception e) {
-            if (e.getMessage().equals("Missing required currency field")) {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Missing required currency field");
-            } else if (e.getMessage().equals("Invalid currency name format")) {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Invalid currency name format");
-            } else if (e.getMessage().equals("Invalid currency code format")) {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Invalid currency code format");
-            } else if (e.getMessage().equals("Invalid currency sign format")) {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, "Invalid currency sign format");
-            } else if (e.getMessage().equals("Currency already exists")) {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_CONFLICT, "Currency already exists");
-            } else {
-                ExceptionHandler.handleException(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error");
-            }
-
+        }catch (MissingRequiredParameterException | InvalidCurrencyFormatException e){
+            ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+        }
+        catch (CurrencyAlreadyExistException e){
+            ExceptionHandler.handleException(resp, HttpServletResponse.SC_CONFLICT, e.getMessage());
+        }
+        catch (Exception e) {
+            ExceptionHandler.handleException(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, AppMassages.INTERNAL_SERVER_ERROR);
         }
     }
 

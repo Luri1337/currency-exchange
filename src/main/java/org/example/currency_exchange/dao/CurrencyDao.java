@@ -1,6 +1,7 @@
 package org.example.currency_exchange.dao;
 
 import org.example.currency_exchange.model.Currency;
+import org.example.currency_exchange.util.AppMassages;
 import org.example.currency_exchange.util.DataSource;
 
 import java.sql.*;
@@ -27,7 +28,7 @@ public class CurrencyDao implements CrudDao<Currency> {
 
             if (affectedRows == 0) {
                 conn.rollback();
-                throw new SQLException("Creating currency failed, no rows affected.");
+                throw new SQLException(AppMassages.CREATING_CURRENCY_FAILED);
             }
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
@@ -35,7 +36,7 @@ public class CurrencyDao implements CrudDao<Currency> {
                     currency.setId(rs.getInt(1));
                 } else {
                     conn.rollback();
-                    throw new SQLException("Creating currency failed, no ID obtained.");
+                    throw new SQLException(AppMassages.CREATING_CURRENCY_FAILED);
                 }
             }
         } catch (SQLException e) {
