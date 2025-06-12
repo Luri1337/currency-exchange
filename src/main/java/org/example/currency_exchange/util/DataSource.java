@@ -3,22 +3,29 @@ package org.example.currency_exchange.util;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class DataSource {
     private static final HikariConfig config = new HikariConfig();
     private static final HikariDataSource ds;
 
     static {
+        String dbPath;
+        dbPath = Objects.requireNonNull(
+                DataSource.class.getClassLoader().getResource("appdb.db")
+        ).getPath();
+
         config.setDriverClassName("org.sqlite.JDBC");
-        config.setJdbcUrl("jdbc:sqlite:C:/Users/Dima/IdeaProjects/currency-exchange/src/main/resources/appdb.db");
+        config.setJdbcUrl("jdbc:sqlite:" + dbPath);
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         ds = new HikariDataSource(config);
     }
-    
+
     private DataSource() {
     }
 
