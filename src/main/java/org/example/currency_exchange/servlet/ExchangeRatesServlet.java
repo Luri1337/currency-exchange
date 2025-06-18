@@ -40,16 +40,16 @@ public class ExchangeRatesServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String baseCurrencyID = req.getParameter("baseCurrencyID");
-        String targetCurrencyID = req.getParameter("targetCurrencyID");
+        String baseCurrencyID = req.getParameter("baseCurrencyCode");
+        String targetCurrencyID = req.getParameter("targetCurrencyCode");
         String rate = req.getParameter("rate");
         try {
             validator.validateRequest(req);
             ObjectMapper objectMapper = new ObjectMapper();
-            Currency baseCurrency = currencyDao.getById(Integer.parseInt(baseCurrencyID))
+            Currency baseCurrency = currencyDao.getByCode(baseCurrencyID)
                     .orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
 
-            Currency targetCurrency = currencyDao.getById(Integer.parseInt(targetCurrencyID))
+            Currency targetCurrency = currencyDao.getByCode(targetCurrencyID)
                     .orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
 
             ExchangeRate exchangeRate = new ExchangeRate(baseCurrency, targetCurrency, BigDecimal.valueOf(Double.parseDouble(rate)));

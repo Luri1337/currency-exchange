@@ -18,32 +18,32 @@ public class ExchangeRatesValidator extends Validator {
 
     @Override
     public void validateRequest(HttpServletRequest request) throws SQLException {
-        String baseCurrencyID = request.getParameter("baseCurrencyID");
-        String targetCurrencyID = request.getParameter("targetCurrencyID");
+        String baseCurrencyCode = request.getParameter("baseCurrencyCode").toUpperCase();
+        String targetCurrencyCode = request.getParameter("targetCurrencyCode").toUpperCase();
         String rate = request.getParameter("rate");
 
-        validateExchangeRate(baseCurrencyID, targetCurrencyID, rate);
+        validateExchangeRate(baseCurrencyCode, targetCurrencyCode, rate);
     }
 
-    private void validateExchangeRate(String baseCurrencyID, String targetCurrencyID, String rate) throws SQLException {
-        if (baseCurrencyID.isBlank() || targetCurrencyID.isBlank() || rate.isBlank()) {
+    private void validateExchangeRate(String baseCurrencyCode, String targetCurrencyCode, String rate) throws SQLException {
+        if (baseCurrencyCode.isBlank() || targetCurrencyCode.isBlank() || rate.isBlank()) {
             throw new MissingRequiredParameterException(AppMassages.MISSING_REQUIRED_PARAMETER);
         }
 
-        if (!baseCurrencyID.matches("^\\d+$")) {
+        if (!baseCurrencyCode.matches("^[A-Z]{3}$")) {
             throw new InvalidExchangeRateFormatException(AppMassages.INVALID_ID_FORMAT);
         }
-        if (!targetCurrencyID.matches("^\\d+$")) {
+        if (!targetCurrencyCode.matches("^[A-Z]{3}$")) {
             throw new InvalidExchangeRateFormatException(AppMassages.INVALID_ID_FORMAT);
         }
         if (!rate.matches("^\\d+(\\.\\d+)?$")) {
             throw new InvalidExchangeRateFormatException(AppMassages.INVALID_RATE_FORMAT);
         }
 
-        Currency baseCurrency = currencyDao.getById(Integer.parseInt(baseCurrencyID))
+        Currency baseCurrency = currencyDao.getByCode(baseCurrencyCode)
                 .orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
 
-        Currency targetCurrency = currencyDao.getById(Integer.parseInt(targetCurrencyID))
+        Currency targetCurrency = currencyDao.getByCode(targetCurrencyCode)
                 .orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
 
         if (checkIfPresent(baseCurrency, targetCurrency)) {

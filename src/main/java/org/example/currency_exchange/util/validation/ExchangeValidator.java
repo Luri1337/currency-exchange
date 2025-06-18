@@ -19,7 +19,7 @@ public class ExchangeValidator extends Validator {
 
     }
 
-    private void validate(String from, String to, String amount) throws SQLException {
+    private void validate(String from, String to, String amount) {
         if (from.isBlank() || to.isBlank() || amount.isBlank()) {
             throw new MissingRequiredParameterException(AppMassages.MISSING_REQUIRED_PARAMETER);
         }

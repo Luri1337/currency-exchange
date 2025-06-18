@@ -7,7 +7,8 @@ import jakarta.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 
-@WebFilter(urlPatterns = {"/*"})
+@WebFilter(urlPatterns = {"/currencies",
+"/currency", "/exchangeRate", "/exchangeRates", "/exchange"})
 public class ApplicationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

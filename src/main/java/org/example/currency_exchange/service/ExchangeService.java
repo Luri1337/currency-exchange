@@ -20,20 +20,20 @@ public class ExchangeService {
         //первый вариант перевода, когда в бд есть этот курс
         if (exchangeRateDao.getByCodePair(from, to).isPresent()) {
             return exchangeRateDao.getByCodePair(from, to).get().getRate()
-                    .multiply(BigDecimal.valueOf(Integer.parseInt(amount))).setScale(2, RoundingMode.HALF_UP);
+                    .multiply(BigDecimal.valueOf(Integer.parseInt(amount)));
         }
         //второй вариант, когда в бд есть обратный курс
         if (exchangeRateDao.getByCodePair(to, from).isPresent()) {
             return (BigDecimal.ONE
                     .divide(exchangeRateDao.getByCodePair(to, from).get().getRate(), new MathContext(2, RoundingMode.HALF_UP)))
-                    .multiply(BigDecimal.valueOf(Integer.parseInt(amount))).setScale(2, RoundingMode.HALF_UP);
+                    .multiply(BigDecimal.valueOf(Integer.parseInt(amount)), new MathContext(2, RoundingMode.HALF_UP));
         }
         //третий варик, когда в бд есть курс USD - A, USD - B
         if (exchangeRateDao.getByCodePair("USD", from).isPresent()
                 && exchangeRateDao.getByCodePair("USD", to).isPresent()) {
             return (exchangeRateDao.getByCodePair("USD", to).get().getRate()
                     .divide(exchangeRateDao.getByCodePair("USD", from).get().getRate(), new MathContext(2, RoundingMode.HALF_UP)))
-                    .multiply(BigDecimal.valueOf(Integer.parseInt(amount))).setScale(2, RoundingMode.HALF_UP);
+                    .multiply(BigDecimal.valueOf(Integer.parseInt(amount)), new MathContext(2, RoundingMode.HALF_UP));
         }
         return BigDecimal.ZERO;
     }
@@ -44,7 +44,8 @@ public class ExchangeService {
 
         return new ExchangeDto(fromCurrency,
                 toCurrency,
-                getConvertedAmount(from, to, amount).divide(BigDecimal.valueOf(Integer.parseInt(amount))),
+                getConvertedAmount(from, to, amount)
+                        .divide(BigDecimal.valueOf(Integer.parseInt(amount))),
                 BigDecimal.valueOf(Integer.parseInt(amount)),
                 getConvertedAmount(from, to, amount));
     }
