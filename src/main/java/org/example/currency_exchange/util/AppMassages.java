@@ -16,6 +16,8 @@ public final class AppMassages {
     public static final String EXCHANGE_RATE_ALREADY_EXISTS = "Exchange rate already exists";
     public static final String INVALID_ID_FORMAT = "Invalid id format";
     public static final String INVALID_RATE_FORMAT = "Invalid rate format";
+    public static final String INVALID_AMOUNT_FORMAT = "Invalid amount format";
+
 
     private AppMassages() {}
 

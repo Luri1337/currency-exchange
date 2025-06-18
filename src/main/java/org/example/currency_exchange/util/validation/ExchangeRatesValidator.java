@@ -26,7 +26,7 @@ public class ExchangeRatesValidator extends Validator {
     }
 
     private void validateExchangeRate(String baseCurrencyID, String targetCurrencyID, String rate) throws SQLException {
-        if (baseCurrencyID.isBlank() || targetCurrencyID.isBlank() || rate == null || rate.isBlank()) {
+        if (baseCurrencyID.isBlank() || targetCurrencyID.isBlank() || rate.isBlank()) {
             throw new MissingRequiredParameterException(AppMassages.MISSING_REQUIRED_PARAMETER);
         }
 

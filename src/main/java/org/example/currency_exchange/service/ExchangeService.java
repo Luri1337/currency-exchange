@@ -17,13 +17,18 @@ public class ExchangeService {
     private final ExchangeRateDao exchangeRateDao = new ExchangeRateDao();
 
     private BigDecimal getConvertedAmount(String from, String to, String amount) throws SQLException {
-
+        //первый вариант перевода, когда в бд есть этот курс
         if (exchangeRateDao.getByCodePair(from, to).isPresent()) {
-            return exchangeRateDao.getByCodePair(from, to).get().getRate().multiply(BigDecimal.valueOf(Integer.parseInt(amount)));
+            return exchangeRateDao.getByCodePair(from, to).get().getRate()
+                    .multiply(BigDecimal.valueOf(Integer.parseInt(amount)));
         }
+        //второй вариант, когда в бд есть обратный курс
         if (exchangeRateDao.getByCodePair(to, from).isPresent()) {
-            return (BigDecimal.ONE.divide(exchangeRateDao.getByCodePair(to, from).get().getRate())).multiply(BigDecimal.valueOf(Integer.parseInt(amount)));
+            return (BigDecimal.ONE
+                    .divide(exchangeRateDao.getByCodePair(to, from).get().getRate()))
+                    .multiply(BigDecimal.valueOf(Integer.parseInt(amount)));
         }
+        //третий варик, когда в бд есть курс USD - A, USD - B
         if (exchangeRateDao.getByCodePair("USD", from).isPresent()
                 && exchangeRateDao.getByCodePair("USD", to).isPresent()) {
             return (exchangeRateDao.getByCodePair("USD", to).get().getRate()
