@@ -4,50 +4,55 @@ import org.example.currency_exchange.dao.CurrencyDao;
 import org.example.currency_exchange.dao.ExchangeRateDao;
 import org.example.currency_exchange.dto.ExchangeDto;
 import org.example.currency_exchange.exception.currencyException.CurrencyNotFoundException;
+import org.example.currency_exchange.exception.exchangeRateException.ExchangeRateNotFoundException;
 import org.example.currency_exchange.model.Currency;
+import org.example.currency_exchange.model.ExchangeRate;
 import org.example.currency_exchange.util.AppMassages;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class ExchangeService {
     private final CurrencyDao currencyDao = new CurrencyDao();
     private final ExchangeRateDao exchangeRateDao = new ExchangeRateDao();
 
-    private BigDecimal getConvertedAmount(String from, String to, String amount) throws SQLException {
-        //первый вариант перевода, когда в бд есть этот курс
-        if (exchangeRateDao.getByCodePair(from, to).isPresent()) {
-            return exchangeRateDao.getByCodePair(from, to).get().getRate()
-                    .multiply(BigDecimal.valueOf(Integer.parseInt(amount)));
+    private BigDecimal calculateExchangeRate(String from, String to) throws SQLException {
+        //прямой курс
+        Optional<ExchangeRate> directRate = exchangeRateDao.getByCodePair(from, to);
+        if (directRate.isPresent()) {
+            return directRate.get().getRate();
         }
-        //второй вариант, когда в бд есть обратный курс
-        if (exchangeRateDao.getByCodePair(to, from).isPresent()) {
+
+        //Обратный курс
+        Optional<ExchangeRate> reverseRate = exchangeRateDao.getByCodePair(to, from);
+        if (reverseRate.isPresent()) {
             return (BigDecimal.ONE
-                    .divide(exchangeRateDao.getByCodePair(to, from).get().getRate(), new MathContext(2, RoundingMode.HALF_UP)))
-                    .multiply(BigDecimal.valueOf(Integer.parseInt(amount)), new MathContext(2, RoundingMode.HALF_UP));
+                    .divide(reverseRate.get().getRate(), 2, RoundingMode.HALF_UP));
         }
-        //третий варик, когда в бд есть курс USD - A, USD - B
-        if (exchangeRateDao.getByCodePair("USD", from).isPresent()
-                && exchangeRateDao.getByCodePair("USD", to).isPresent()) {
-            return (exchangeRateDao.getByCodePair("USD", to).get().getRate()
-                    .divide(exchangeRateDao.getByCodePair("USD", from).get().getRate(), new MathContext(2, RoundingMode.HALF_UP)))
-                    .multiply(BigDecimal.valueOf(Integer.parseInt(amount)), new MathContext(2, RoundingMode.HALF_UP));
+
+        //кросс курс через USD - A, USD - B
+        Optional<ExchangeRate> usdFromRate = exchangeRateDao.getByCodePair("USD", from);
+        Optional<ExchangeRate> usdToRate = exchangeRateDao.getByCodePair("USD", to);
+        if (usdFromRate.isPresent() && usdToRate.isPresent()) {
+            return usdToRate.get().getRate().divide(usdFromRate.get().getRate(), 2, RoundingMode.HALF_UP);
         }
-        return BigDecimal.ZERO;
+        throw new ExchangeRateNotFoundException(AppMassages.EXCHANGE_RATE_NOT_FOUND);
     }
 
     public ExchangeDto exchange(String from, String to, String amount) throws SQLException {
         Currency fromCurrency = currencyDao.getByCode(from).orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
         Currency toCurrency = currencyDao.getByCode(to).orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
 
+        BigDecimal amountValue = new BigDecimal(amount);
+        BigDecimal rate = calculateExchangeRate(from, to);
+        BigDecimal convertedAmount = rate.multiply(amountValue).setScale(2, RoundingMode.HALF_UP);
         return new ExchangeDto(fromCurrency,
                 toCurrency,
-                getConvertedAmount(from, to, amount)
-                        .divide(BigDecimal.valueOf(Integer.parseInt(amount))),
-                BigDecimal.valueOf(Integer.parseInt(amount)),
-                getConvertedAmount(from, to, amount));
+                rate,
+                amountValue,
+                convertedAmount);
     }
 
 }

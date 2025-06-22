@@ -1,6 +1,5 @@
 package org.example.currency_exchange.util.validation;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.example.currency_exchange.exception.InvalidExchangeFormatException;
 import org.example.currency_exchange.exception.MissingRequiredParameterException;
 import org.example.currency_exchange.util.AppMassages;
@@ -8,18 +7,10 @@ import org.example.currency_exchange.util.AppMassages;
 import java.sql.SQLException;
 
 
-public class ExchangeValidator extends Validator {
-    @Override
-    public void validateRequest(HttpServletRequest request) throws SQLException {
-        String from = request.getParameter("from").toUpperCase();
-        String to = request.getParameter("to").toUpperCase();
-        String amount = request.getParameter("amount");
+public class ExchangeValidator {
 
-        validate(from, to, amount);
+    public void validateRequest(String from, String to, String amount) throws SQLException {
 
-    }
-
-    private void validate(String from, String to, String amount) {
         if (from.isBlank() || to.isBlank() || amount.isBlank()) {
             throw new MissingRequiredParameterException(AppMassages.MISSING_REQUIRED_PARAMETER);
         }
@@ -33,4 +24,5 @@ public class ExchangeValidator extends Validator {
             throw new InvalidExchangeFormatException(AppMassages.INVALID_AMOUNT_FORMAT);
         }
     }
+
 }

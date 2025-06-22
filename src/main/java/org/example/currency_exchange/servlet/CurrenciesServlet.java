@@ -1,7 +1,6 @@
 package org.example.currency_exchange.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,29 +21,27 @@ import java.util.List;
 @WebServlet("/currencies")
 public class CurrenciesServlet extends HttpServlet {
     private final CurrencyDao currencyDao = new CurrencyDao();
-    private final CurrenciesValidator currenciesValidator = new CurrenciesValidator();
+    private final CurrenciesValidator validator = new CurrenciesValidator();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        String code = req.getParameter("code");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String name = req.getParameter("name").toUpperCase();
+        String code = req.getParameter("code").toUpperCase();
         String sign = req.getParameter("sign");
 
         try {
-            currenciesValidator.validateRequest(req);
+            validator.validateRequest(name, code, sign);
             Currency currency = new Currency(name, code, sign);
             currencyDao.create(currency);
 
             resp.setStatus(HttpServletResponse.SC_CREATED);
             resp.getWriter().write(new ObjectMapper().writeValueAsString(currency));
 
-        }catch (MissingRequiredParameterException | InvalidCurrencyFormatException e){
+        } catch (MissingRequiredParameterException | InvalidCurrencyFormatException e) {
             ExceptionHandler.handleException(resp, HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
-        }
-        catch (CurrencyAlreadyExistException e){
+        } catch (CurrencyAlreadyExistException e) {
             ExceptionHandler.handleException(resp, HttpServletResponse.SC_CONFLICT, e.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             ExceptionHandler.handleException(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, AppMassages.INTERNAL_SERVER_ERROR);
         }
     }

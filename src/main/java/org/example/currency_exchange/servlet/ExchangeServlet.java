@@ -13,7 +13,6 @@ import org.example.currency_exchange.exception.currencyException.CurrencyNotFoun
 import org.example.currency_exchange.service.ExchangeService;
 import org.example.currency_exchange.util.AppMassages;
 import org.example.currency_exchange.util.validation.ExchangeValidator;
-import org.example.currency_exchange.util.validation.Validator;
 
 import java.io.IOException;
 
@@ -21,16 +20,16 @@ import java.io.IOException;
 public class ExchangeServlet extends HttpServlet {
     private static final ExchangeService exchangeService = new ExchangeService();
     private static final ObjectMapper mapper = new ObjectMapper();
-    private static final Validator validator = new ExchangeValidator();
+    private static final ExchangeValidator validator = new ExchangeValidator();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String from = req.getParameter("from");
-        String to = req.getParameter("to");
+        String from = req.getParameter("from").toUpperCase();
+        String to = req.getParameter("to").toUpperCase();
         String amount = req.getParameter("amount");
 
         try {
-            validator.validateRequest(req);
+            validator.validateRequest(from, to, amount);
             ExchangeDto exchange = exchangeService.exchange(from, to, amount);
 
             resp.setStatus(HttpServletResponse.SC_OK);

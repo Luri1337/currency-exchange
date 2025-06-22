@@ -1,6 +1,5 @@
 package org.example.currency_exchange.util.validation;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.example.currency_exchange.dao.CurrencyDao;
 import org.example.currency_exchange.dao.ExchangeRateDao;
 import org.example.currency_exchange.exception.MissingRequiredParameterException;
@@ -12,20 +11,12 @@ import org.example.currency_exchange.util.AppMassages;
 
 import java.sql.SQLException;
 
-public class ExchangeRatesValidator extends Validator {
+public class ExchangeRatesValidator {
     private static final ExchangeRateDao exchangeRateDao = new ExchangeRateDao();
     private static final CurrencyDao currencyDao = new CurrencyDao();
 
-    @Override
-    public void validateRequest(HttpServletRequest request) throws SQLException {
-        String baseCurrencyCode = request.getParameter("baseCurrencyCode").toUpperCase();
-        String targetCurrencyCode = request.getParameter("targetCurrencyCode").toUpperCase();
-        String rate = request.getParameter("rate");
+    public void validateRequest(String baseCurrencyCode, String targetCurrencyCode, String rate) throws SQLException {
 
-        validateExchangeRate(baseCurrencyCode, targetCurrencyCode, rate);
-    }
-
-    private void validateExchangeRate(String baseCurrencyCode, String targetCurrencyCode, String rate) throws SQLException {
         if (baseCurrencyCode.isBlank() || targetCurrencyCode.isBlank() || rate.isBlank()) {
             throw new MissingRequiredParameterException(AppMassages.MISSING_REQUIRED_PARAMETER);
         }

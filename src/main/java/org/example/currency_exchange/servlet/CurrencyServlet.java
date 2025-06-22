@@ -13,22 +13,20 @@ import org.example.currency_exchange.exception.currencyException.InvalidCurrency
 import org.example.currency_exchange.model.Currency;
 import org.example.currency_exchange.util.AppMassages;
 import org.example.currency_exchange.util.validation.CurrencyValidator;
-import org.example.currency_exchange.util.validation.Validator;
 
 import java.io.IOException;
 
 @WebServlet("/currency/*")
 public class CurrencyServlet extends HttpServlet {
     private static final CurrencyDao currencyDao = new CurrencyDao();
-    Validator validator = new CurrencyValidator();
+    CurrencyValidator validator = new CurrencyValidator();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String pathInfo = req.getPathInfo();
+        String currencyCode = req.getPathInfo().substring(1).toUpperCase();
 
         try {
-            validator.validateRequest(req);
-            String currencyCode = pathInfo.substring(1).toUpperCase();
+            validator.validateRequest(currencyCode);
             Currency currency = currencyDao.getByCode(currencyCode)
                     .orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));
             resp.getWriter().write(new ObjectMapper().writeValueAsString(currency));

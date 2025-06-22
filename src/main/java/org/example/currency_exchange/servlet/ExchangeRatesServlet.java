@@ -15,7 +15,6 @@ import org.example.currency_exchange.model.Currency;
 import org.example.currency_exchange.model.ExchangeRate;
 import org.example.currency_exchange.util.AppMassages;
 import org.example.currency_exchange.util.validation.ExchangeRatesValidator;
-import org.example.currency_exchange.util.validation.Validator;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -25,7 +24,7 @@ import java.util.List;
 public class ExchangeRatesServlet extends HttpServlet {
     private static final ExchangeRateDao exchangeRateDao = new ExchangeRateDao();
     private static final CurrencyDao currencyDao = new CurrencyDao();
-    private static final Validator validator = new ExchangeRatesValidator();
+    private static final ExchangeRatesValidator validator = new ExchangeRatesValidator();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -40,11 +39,11 @@ public class ExchangeRatesServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String baseCurrencyID = req.getParameter("baseCurrencyCode");
-        String targetCurrencyID = req.getParameter("targetCurrencyCode");
+        String baseCurrencyID = req.getParameter("baseCurrencyCode").toUpperCase();
+        String targetCurrencyID = req.getParameter("targetCurrencyCode").toUpperCase();
         String rate = req.getParameter("rate");
         try {
-            validator.validateRequest(req);
+            validator.validateRequest(baseCurrencyID, targetCurrencyID, rate);
             ObjectMapper objectMapper = new ObjectMapper();
             Currency baseCurrency = currencyDao.getByCode(baseCurrencyID)
                     .orElseThrow(() -> new CurrencyNotFoundException(AppMassages.CURRENCY_NOT_FOUND));

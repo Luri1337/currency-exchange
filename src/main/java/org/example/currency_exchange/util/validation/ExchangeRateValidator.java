@@ -5,8 +5,8 @@ import org.example.currency_exchange.exception.MissingRequiredParameterException
 import org.example.currency_exchange.exception.exchangeRateException.InvalidExchangeRateFormatException;
 import org.example.currency_exchange.util.AppMassages;
 
-public class ExchangeRateValidator extends Validator {
-    @Override
+public class ExchangeRateValidator {
+
     public void validateRequest(HttpServletRequest request) {
         String codePair = getRequiredParameter(request);
         validateCodePair(codePair);
