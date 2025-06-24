@@ -9,20 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4db3f42a-358b-4097-a0ef-127a0f469070" name="Changes" comment="Add front in second time, some refact.">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="4db3f42a-358b-4097-a0ef-127a0f469070" name="Changes" comment="Refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/service/ExchangeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/service/ExchangeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/CurrenciesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/CurrenciesServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/CurrencyServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/CurrencyServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/ExchangeRatesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/ExchangeRatesServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/ExchangeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/servlet/ExchangeServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/validation/CurrenciesValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/validation/CurrenciesValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/validation/CurrencyValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/validation/CurrencyValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/validation/ExchangeRateValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/validation/ExchangeRateValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/validation/ExchangeRatesValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/validation/ExchangeRatesValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/validation/ExchangeValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/validation/ExchangeValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/validation/Validator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/DataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/currency_exchange/util/DataSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +69,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Maven.currency-exchange [clean,package].executor": "Run",
     "Maven.currency-exchange [clean].executor": "Run",
     "Maven.currency-exchange [package].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -281,7 +272,8 @@
       <workItem from="1750276896428" duration="4553000" />
       <workItem from="1750318166045" duration="755000" />
       <workItem from="1750578631700" duration="2000" />
-      <workItem from="1750578672732" duration="4927000" />
+      <workItem from="1750578672732" duration="5556000" />
+      <workItem from="1750719312415" duration="4128000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -475,7 +467,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750282757191</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Refactoring">
+      <option name="closed" value="true" />
+      <created>1750583749472</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1750583749472</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -511,14 +511,14 @@
     <MESSAGE value="commit bd" />
     <MESSAGE value="some refactoring" />
     <MESSAGE value="Add filter, some refactoring" />
-    <MESSAGE value="Refactoring" />
     <MESSAGE value="Refactoring&#10;Change jdbcUrl format" />
     <MESSAGE value="Validation for ExchangeServlet" />
     <MESSAGE value="Validation for ExchangeServlet, some refactoring" />
     <MESSAGE value="Refactoring&#10;Add rounding when in Exchange service" />
     <MESSAGE value="Add front" />
     <MESSAGE value="Add front in second time, some refact." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add front in second time, some refact." />
+    <MESSAGE value="Refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

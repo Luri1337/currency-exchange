@@ -13,13 +13,9 @@ public class DataSource {
     private static final HikariDataSource ds;
 
     static {
-        String dbPath;
-        dbPath = Objects.requireNonNull(
-                DataSource.class.getClassLoader().getResource("appdb.db")
-        ).getPath();
 
         config.setDriverClassName("org.sqlite.JDBC");
-        config.setJdbcUrl("jdbc:sqlite:" + dbPath);
+        config.setJdbcUrl("jdbc:sqlite:" +  DataSource.class.getClassLoader().getResource("appdb.db"));
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
