@@ -42,7 +42,7 @@ A web application for managing currencies and calculating conversions. Allows:
 - Apache Tomcat 10+
 - SQLite 3 
 
-- if u wanna run, instsll all from requirements and clone from git
+- if u wanna run, install all from requirements and clone from git
 
 ---
 
